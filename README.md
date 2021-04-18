@@ -129,3 +129,151 @@ Time: 1ms total (execution 1ms / network 0ms)
 ```
 
 
+
+
+### Building a local 3 node cluster
+
+```
+#!/usr/bin/bash
+
+# https://www.cockroachlabs.com/docs/v20.2/start-a-local-cluster
+# node1
+cockroach start --insecure --store=node1 --listen-addr=localhost:26257 --http-addr=localhost:8080 --join=localhost:26257,localhost:26258,localhost:26259 --background
+
+# node2
+cockroach start --insecure --store=node2 --listen-addr=localhost:26258 --http-addr=localhost:8081 --join=localhost:26257,localhost:26258,localhost:26259 --background
+
+# node3
+cockroach start --insecure --store=node3 --listen-addr=localhost:26259 --http-addr=localhost:8082 --join=localhost:26257,localhost:26258,localhost:26259 --background
+
+```
+and running this after the base VM install
+```
+[c7cockroach:vagrant:/vagrant] # ./cockroachdb_start_cluster.sh 
+*
+* WARNING: ALL SECURITY CONTROLS HAVE BEEN DISABLED!
+* 
+* This mode is intended for non-production testing only.
+* 
+* In this mode:
+* - Your cluster is open to any client that can access localhost.
+* - Intruders with access to your machine or network can observe client-server traffic.
+* - Intruders can log in without password and read or write any data in the cluster.
+* - Intruders can consume all your server's resources and cause unavailability.
+*
+*
+* INFO: To start a secure server without mandating TLS for clients,
+* consider --accept-sql-without-tls instead. For other options, see:
+* 
+* - https://go.crdb.dev/issue-v/53404/v20.2
+* - https://www.cockroachlabs.com/docs/v20.2/secure-a-cluster.html
+*
+*
+* INFO: initial startup completed
+* Node will now attempt to join a running cluster, or wait for `cockroach init`.
+* Client connections will be accepted after this completes successfully.
+* Check the log file(s) for progress. 
+*
+*
+* WARNING: ALL SECURITY CONTROLS HAVE BEEN DISABLED!
+* 
+* This mode is intended for non-production testing only.
+* 
+* In this mode:
+* - Your cluster is open to any client that can access localhost.
+* - Intruders with access to your machine or network can observe client-server traffic.
+* - Intruders can log in without password and read or write any data in the cluster.
+* - Intruders can consume all your server's resources and cause unavailability.
+*
+*
+* INFO: To start a secure server without mandating TLS for clients,
+* consider --accept-sql-without-tls instead. For other options, see:
+* 
+* - https://go.crdb.dev/issue-v/53404/v20.2
+* - https://www.cockroachlabs.com/docs/v20.2/secure-a-cluster.html
+*
+*
+* INFO: initial startup completed
+* Node will now attempt to join a running cluster, or wait for `cockroach init`.
+* Client connections will be accepted after this completes successfully.
+* Check the log file(s) for progress. 
+*
+*
+* WARNING: ALL SECURITY CONTROLS HAVE BEEN DISABLED!
+* 
+* This mode is intended for non-production testing only.
+* 
+* In this mode:
+* - Your cluster is open to any client that can access localhost.
+* - Intruders with access to your machine or network can observe client-server traffic.
+* - Intruders can log in without password and read or write any data in the cluster.
+* - Intruders can consume all your server's resources and cause unavailability.
+*
+*
+* INFO: To start a secure server without mandating TLS for clients,
+* consider --accept-sql-without-tls instead. For other options, see:
+* 
+* - https://go.crdb.dev/issue-v/53404/v20.2
+* - https://www.cockroachlabs.com/docs/v20.2/secure-a-cluster.html
+*
+*
+* INFO: initial startup completed
+* Node will now attempt to join a running cluster, or wait for `cockroach init`.
+* Client connections will be accepted after this completes successfully.
+* Check the log file(s) for progress. 
+*
+Cluster successfully initialized
+CockroachDB node starting at 2021-04-17 14:55:46.810174948 +0000 UTC (took 1.0s)
+build:               CCL v20.2.7 @ 2021/03/29 17:52:00 (go1.13.14)
+webui:               ‹http://localhost:8080›
+sql:                 ‹postgresql://root@localhost:26257?sslmode=disable›
+RPC client flags:    ‹cockroach <client cmd> --host=localhost:26257 --insecure›
+logs:                ‹/vagrant/node1/logs›
+temp dir:            ‹/vagrant/node1/cockroach-temp717823216›
+external I/O path:   ‹/vagrant/node1/extern›
+store[0]:            ‹path=/vagrant/node1›
+storage engine:      pebble
+status:              initialized new cluster
+clusterID:           ‹da6a6b7d-7716-44b0-af5e-90a435913803›
+```
+
+### Running cockroach sql
+
+```
+[c7cockroach:vagrant:/vagrant] # cockroach sql --insecure --host=localhost:26257
+#
+# Welcome to the CockroachDB SQL shell.
+# All statements must be terminated by a semicolon.
+# To exit, type: \q.
+#
+# Server version: CockroachDB CCL v20.2.7 (x86_64-unknown-linux-gnu, built 2021/03/29 17:52:00, go1.13.14) (same version as client)
+# Cluster ID: 5da6d35a-be19-430c-b0b9-9ef69f966cba
+#
+# Enter \? for a brief introduction.
+#
+root@localhost:26257/defaultdb>  
+tab completion not supported; append '??' and press tab for contextual help
+
+root@localhost:26257/defaultdb>  CREATE DATABASE bank;
+CREATE DATABASE
+
+Time: 56ms total (execution 54ms / network 2ms)
+
+root@localhost:26257/defaultdb> CREATE TABLE bank.accounts (id INT PRIMARY KEY, balance DECIMAL);
+CREATE TABLE
+
+Time: 74ms total (execution 68ms / network 6ms)
+
+root@localhost:26257/defaultdb> INSERT INTO bank.accounts VALUES (1, 1000.50);
+INSERT 1
+
+Time: 42ms total (execution 42ms / network 0ms)
+
+root@localhost:26257/defaultdb> SELECT * FROM bank.accounts;
+  id | balance
+-----+----------
+   1 | 1000.50
+(1 row)
+
+Time: 66ms total (execution 63ms / network 3ms)
+```
