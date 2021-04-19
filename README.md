@@ -237,6 +237,8 @@ status:              initialized new cluster
 clusterID:           ‹da6a6b7d-7716-44b0-af5e-90a435913803›
 ```
 
+For the full log please click [here](setup.log)
+
 ### Running cockroach sql
 
 ```
