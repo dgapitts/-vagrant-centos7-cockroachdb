@@ -1,5 +1,22 @@
 # vagrant-centos7-cockroachdb
 
+
+
+## Summary
+
+I'm following some cockroachDB courses:
+* April 2021 - https://university.cockroachlabs.com/course/introduction-to-distributed-sql-and-cockroachdb
+* May 2021 - https://university.cockroachlabs.com/course/practical-first-steps
+
+
+Below I also show how to setup a centos7-cockroachDB virtualbox-vm via vagrant i.e. as well as my notes on working through the cockroachlabs training/university materials.
+
+
+## More Details 
+
+* [Exploring demo db - shipped with cockroach](demo_db.md)
+* [Introducing the cockroach web-console](Introducing-web-console.md) 
+
 ## Base centos7 cockroachDB via vagrant
 
 Prerequisites
