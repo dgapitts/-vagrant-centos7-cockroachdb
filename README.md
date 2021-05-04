@@ -17,6 +17,7 @@ Below I also show how to setup a centos7-cockroachDB virtualbox-vm via vagrant i
 * [Exploring demo db - shipped with cockroach](demo_db.md)
 * [Introducing the cockroach web-console](Introducing-web-console.md) 
 * [Transaction management and TransactionAbortedError](Transaction_management.md)
+* [Explain plans & secondary indexes](Explain_plans-and-secondary_indexes.md)
 
 ## Base centos7 cockroachDB via vagrant
 
