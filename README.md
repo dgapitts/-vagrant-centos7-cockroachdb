@@ -19,6 +19,7 @@ Below I also show how to setup a centos7-cockroachDB virtualbox-vm via vagrant i
 * [Transaction management and TransactionAbortedError](Transaction_management.md)
 * [Explain plans & secondary indexes](Explain_plans-and-secondary_indexes.md)
 * [Starting an Insecure Single-Node Cluster and sample movr datbase](Start-an-Insecure-Single-Node-Cluster.md)
+* [Stopping and Removing a Local CockroachDB Cluster via pkill plus data & log files](Stopping-Local-Cockroach-via-pkill.md)
 ## Base centos7 cockroachDB via vagrant
 
 Prerequisites
