@@ -1,7 +1,7 @@
 CREATE & SET DATABASE - CREATE & ALTER TABLE - SHOW CREATE
 
 
-These commands
+These CREATE & SET DATABASE commands
 
 ```
 CREATE DATABASE crdb_uni;
@@ -19,17 +19,17 @@ Time: 20ms total (execution 19ms / network 0ms)
 
 Notice the command prompt show typically show the new database 
 
+```
 root@localhost:26257/crdb_uni>
+```
 
-Lets add a `students` table and review DDL 
+Next lets add a `students` table and review DDL 
 
 
+```
 CREATE TABLE students (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), name STRING);
 SHOW CREATE students;
 
-
- CREATE TABLE students (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), name STRING);
-CREATE TABLE
 
 Time: 16ms total (execution 16ms / network 0ms)
 
@@ -47,7 +47,7 @@ root@localhost:26257/crdb_uni> SHOW CREATE students;
 Time: 37ms total (execution 36ms / network 0ms)
 ```
 
-
+and a `courses` table:
 
 ```
 CREATE TABLE courses (sys_id UUID DEFAULT gen_random_uuid(), course_id INT, name STRING, PRIMARY KEY (sys_id, course_id));
@@ -70,7 +70,10 @@ Time: 8ms total (execution 8ms / network 0ms)
 (1 row)
 
 Time: 23ms total (execution 23ms / network 0ms)
+```
 
+
+and finally an example of the alter command
 
 ```
 ALTER TABLE courses ADD COLUMN schedule STRING;
