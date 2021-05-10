@@ -101,27 +101,33 @@ and in a third session, I tracked load averages and du (disc usage) by node
 As per the course 
 
 > Overview, metrics, databases, statements and jobs.
-The metrics overview dashboard lets you monitor important SQL performance, replication, and storage metrics.
+The metrics **overview dashboard** lets you monitor important SQL performance, replication, and storage metrics.
 It displays time series graphs for SQL queries, service latency, replicas per node and storage capacity.
 You can use the drop downs at the top to show different cluster metrics.
 You can see metrics for your cluster or for just one of the nodes.
 You can also find lots of different and useful metrics dashboards.
-An important one is a hardware dashboard which lets you monitor CPU usage, disk throughput, network traffic, storage capacity and memory.
+An important one is a **hardware dashboard** which lets you monitor CPU usage, disk throughput, network traffic, storage capacity and memory.
 It's important to note that these graphs show the hardware consumption by the CockroachDB process only, and you can also toggle between different time periods for which to view metrics.
 The databases page of the Admin UI provides details of the databases configured, the tables in each database and the grants assigned to each user.
 If you click on a table on the database, the table schema displays.
+Schema information, like whether there are indexes configured or if the table is partitioned, are shown here through the table's DML.
+The statements page helps you identify frequently executed or high latency sequel statements.
+It also allows you to view the details of an individual sequel statement by clicking on the statement to view the statement details page.
+On the statement details page, you can view the logical plan for the statement as well as the breakdown of the phases for executing the statement.
+These can expose opportunities for query performance tuning, and lastly, the jobs page provides details about the backup restore jobs, schema changes, user-created table statistics and automatic table statistics jobs, and change feeds performed across all the nodes in the cluster.
 
 
+So reviewing the above 
 
+* **Overview Dashboard** - "OLTP style node" localhost-26257 
 
+![Overview-Dashboard-localhost-26257](Overview-Dashboard-localhost-26257.png)
 
+* **Overview Dashboard** - "OLAP style node" localhost-26258 
 
-hardware dashboard (cluster and node levels are identical - as all three nodes are on the same physical machine) CPU usage, disk throughput, network traffic, storage capacity and memory.
+![Overview-Dashboard-localhost-26258](Overview-Dashboard-localhost-26258.png)
 
+* **Hardware dashboard** (cluster and node levels are identical - as all three nodes are on the same physical machine) CPU usage, disk throughput, network traffic, storage capacity and memory.
 
-databases page 
-
-
-of the Admin UI provides details of the databases configured, the tables in each database and the grants assigned to each user.
-If you click on a table on the database, the table schema displays.
+![hardware-dashboard](hardware-dashboard.png)
 
