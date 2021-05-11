@@ -21,6 +21,7 @@ Below I also show how to setup a centos7-cockroachDB virtualbox-vm via vagrant i
 * [Starting an Insecure Single-Node Cluster and sample movr datbase](Start-an-Insecure-Single-Node-Cluster.md)
 * [Stopping and Removing a Local CockroachDB Cluster via pkill plus data & log files](Stopping-Local-Cockroach-via-pkill.md)
 * [Basic CSQL DDL: CREATE & SET database - CREATE & ALTER table - SHOW CREATE](CREATE_SET_DATABASE-CREATE_ALTER_TABLE.md)
+* [Introducing web-console part2.md](Introducing-web-console-part2.md)
 ## Base centos7 cockroachDB via vagrant
 
 Prerequisites
