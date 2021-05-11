@@ -105,16 +105,16 @@ The metrics **overview dashboard** lets you monitor important SQL performance, r
 It displays time series graphs for SQL queries, service latency, replicas per node and storage capacity.
 You can use the drop downs at the top to show different cluster metrics.
 You can see metrics for your cluster or for just one of the nodes.
-You can also find lots of different and useful metrics dashboards.
+You can also find lots of different and useful metrics dashboards.<br/>
 An important one is a **hardware dashboard** which lets you monitor CPU usage, disk throughput, network traffic, storage capacity and memory.
-It's important to note that these graphs show the hardware consumption by the CockroachDB process only, and you can also toggle between different time periods for which to view metrics.
-The databases page of the Admin UI provides details of the databases configured, the tables in each database and the grants assigned to each user.
-If you click on a table on the database, the table schema displays.
-Schema information, like whether there are indexes configured or if the table is partitioned, are shown here through the table's DML.
-The statements page helps you identify frequently executed or high latency sequel statements.
+It's important to note that these graphs show the hardware consumption by the CockroachDB process only, and you can also toggle between different time periods for which to view metrics.<br/>
+The **databases page** of the Admin UI provides details of the databases configured, the tables in each database and the grants assigned to each user.
+If you click on a table on the database, the table schema displays.<br/>
+Schema information, like whether there are indexes configured or if the table is partitioned, are shown here through the table's DML.<br/>
+The **statements page** helps you identify frequently executed or high latency sequel statements.
 It also allows you to view the details of an individual sequel statement by clicking on the statement to view the statement details page.
-On the statement details page, you can view the logical plan for the statement as well as the breakdown of the phases for executing the statement.
-These can expose opportunities for query performance tuning, and lastly, the jobs page provides details about the backup restore jobs, schema changes, user-created table statistics and automatic table statistics jobs, and change feeds performed across all the nodes in the cluster.
+On the statement details page, you can view the logical plan for the statement as well as the breakdown of the phases for executing the statement.<br/>
+These can expose opportunities for query performance tuning, and lastly, the **jobs page** provides details about the backup restore jobs, schema changes, user-created table statistics and automatic table statistics jobs, and change feeds performed across all the nodes in the cluster.
 
 
 So reviewing the above 
@@ -131,3 +131,32 @@ So reviewing the above
 
 ![hardware-dashboard](hardware-dashboard.png)
 
+
+* **databases page** - top level
+
+![databases-page](databases-page.png)
+
+* **databases page** - drill into databases table details
+
+![databases-page-table-details](databases-page-table-details.png)
+
+* **statements page** - overview
+
+![statements page](statements-page.png)
+
+
+* **statements - individual query analysis** - overview
+
+![statements page](statements-page-details1.png)
+
+* **statements - individual query analysis** - logical plan
+
+![statements page](statements-page-details2.png)
+
+* **statements - individual query analysis** - execution stats
+
+![statements page](statements-page-details3.png)
+
+* **jobs page**
+
+![jobs page](job-page.png)
