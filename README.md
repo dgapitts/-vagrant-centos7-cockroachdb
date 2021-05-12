@@ -29,3 +29,4 @@ Below I also show how to setup a centos7-cockroachDB virtualbox-vm via vagrant i
 * [Stopping and Removing a Local CockroachDB Cluster via pkill plus data & log files](Stopping-Local-Cockroach-via-pkill.md)
 * [Basic CSQL DDL: CREATE & SET database - CREATE & ALTER table - SHOW CREATE](CREATE_SET_DATABASE-CREATE_ALTER_TABLE.md)
 * [Introducing web-console part2 - simple load test OLTP vs OLAP on distinct nodes](Introducing-web-console-part2.md)
+* [Cluster Concepts: Keyspace-Ranges-Replicas (cover a few key concepts - documentation only)](Cluster-Concepts_Keyspace-Ranges-Replicas.md)
