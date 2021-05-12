@@ -1,7 +1,7 @@
-Stopping and Removing a Local CockroachDB Cluster 
+Stopping and Removing a Local CockroachDB Cluster via pkill
 
 
-The brutual way is via pkill
+The brutual way of stopping cockroachdb is via pkill
 ```
 [c7cockroach:vagrant:/vagrant] # ps -ef|grep cockroach
 vagrant   1679     1 14 May03 pts/0    10:33:41 cockroach start --insecure --store=node1 --listen-addr=localhost:26257 --http-addr=localhost:8080 --join=localhost:26257,localhost:26258,localhost:26259
