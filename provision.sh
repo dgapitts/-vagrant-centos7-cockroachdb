@@ -20,6 +20,11 @@ then
   cp -i cockroach-v20.2.7.linux-amd64/lib/libgeos.so /usr/local/lib/cockroach/
   cp -i cockroach-v20.2.7.linux-amd64/lib/libgeos_c.so /usr/local/lib/cockroach/
 
+  # add haproxy
+  yum -y install haproxy
+  systemctl start haproxy
+  systemctl status haproxy
+
   # Add ShellCheck https://github.com/koalaman/shellcheck - a great tool for testing and improving the quality of shell scripts
   yum -y install epel-release
   yum -y install ShellCheck
