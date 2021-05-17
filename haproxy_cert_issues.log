@@ -1,0 +1,1745 @@
+[c7cockroach:vagrant:/vagrant] # ^C
+[c7cockroach:vagrant:/vagrant] # cat  /etc/security/limits.conf 
+# /etc/security/limits.conf
+#
+#This file sets the resource limits for the users logged in via PAM.
+#It does not affect resource limits of the system services.
+#
+#Also note that configuration files in /etc/security/limits.d directory,
+#which are read in alphabetical order, override the settings in this
+#file in case the domain is the same or more specific.
+#That means for example that setting a limit for wildcard domain here
+#can be overriden with a wildcard setting in a config file in the
+#subdirectory, but a user specific setting here can be overriden only
+#with a user specific setting in the subdirectory.
+#
+#Each line describes a limit for a user in the form:
+#
+#<domain>        <type>  <item>  <value>
+#
+#Where:
+#<domain> can be:
+#        - a user name
+#        - a group name, with @group syntax
+#        - the wildcard *, for default entry
+#        - the wildcard %, can be also used with %group syntax,
+#                 for maxlogin limit
+#
+#<type> can have the two values:
+#        - "soft" for enforcing the soft limits
+#        - "hard" for enforcing hard limits
+#
+#<item> can be one of the following:
+#        - core - limits the core file size (KB)
+#        - data - max data size (KB)
+#        - fsize - maximum filesize (KB)
+#        - memlock - max locked-in-memory address space (KB)
+#        - nofile - max number of open file descriptors
+#        - rss - max resident set size (KB)
+#        - stack - max stack size (KB)
+#        - cpu - max CPU time (MIN)
+#        - nproc - max number of processes
+#        - as - address space limit (KB)
+#        - maxlogins - max number of logins for this user
+#        - maxsyslogins - max number of logins on the system
+#        - priority - the priority to run user process with
+#        - locks - max number of file locks the user can hold
+#        - sigpending - max number of pending signals
+#        - msgqueue - max memory used by POSIX message queues (bytes)
+#        - nice - max nice priority allowed to raise to values: [-20, 19]
+#        - rtprio - max realtime priority
+#
+#<domain>      <type>  <item>         <value>
+#
+
+#*               soft    core            0
+#*               hard    rss             10000
+#@student        hard    nproc           20
+#@faculty        soft    nproc           20
+#@faculty        hard    nproc           50
+#ftp             hard    nproc           0
+#@student        -       maxlogins       4
+
+# End of file
+[c7cockroach:vagrant:/vagrant] # echo 'soft nofile 4096' >> /etc/security/limits.conf
+-bash: /etc/security/limits.conf: Permission denied
+[c7cockroach:vagrant:/vagrant] # sudo echo 'soft nofile 4096' >> /etc/security/limits.conf
+-bash: /etc/security/limits.conf: Permission denied
+[c7cockroach:vagrant:/vagrant] # sudo -i 
+[root@c7cockroach ~]#  echo 'soft nofile 4096' >> /etc/security/limits.conf
+[root@c7cockroach ~]#  echo 'hard nofile 10240' >> /etc/security/limits.conf
+[root@c7cockroach ~]# exit
+logout
+[c7cockroach:vagrant:/vagrant] #  haproxy -d -f haproxy.cfg
+Available polling systems :
+      epoll : pref=300,  test result OK
+       poll : pref=200,  test result OK
+     select : pref=150,  test result FAILED
+Total: 3 (2 usable), will use epoll.
+Using epoll() as the polling mechanism.
+[WARNING] 133/211156 (7579) : [haproxy.main()] Cannot raise FD limit to 8206.
+[ALERT] 133/211156 (7579) : Starting proxy psql: cannot bind socket [0.0.0.0:26257]
+[c7cockroach:vagrant:/vagrant] # sudo -1
+sudo: invalid option -- '1'
+usage: sudo -h | -K | -k | -V
+usage: sudo -v [-AknS] [-g group] [-h host] [-p prompt] [-u user]
+usage: sudo -l [-AknS] [-g group] [-h host] [-p prompt] [-U user] [-u user] [command]
+usage: sudo [-AbEHknPS] [-r role] [-t type] [-C num] [-g group] [-h host] [-p prompt] [-u user] [VAR=value] [-i|-s] [<command>]
+usage: sudo -e [-AknS] [-r role] [-t type] [-C num] [-g group] [-h host] [-p prompt] [-u user] file ...
+[c7cockroach:vagrant:/vagrant] # sudo -i
+[root@c7cockroach ~]#  echo 'soft nofile 16000' >> /etc/security/limits.conf
+[root@c7cockroach ~]#  echo 'hard nofile 32000' >> /etc/security/limits.conf
+[root@c7cockroach ~]# sudo -
+sudo: -: command not found
+[root@c7cockroach ~]# exit
+logout
+[c7cockroach:vagrant:/vagrant] #  haproxy -d -f haproxy.cfg
+Available polling systems :
+      epoll : pref=300,  test result OK
+       poll : pref=200,  test result OK
+     select : pref=150,  test result FAILED
+Total: 3 (2 usable), will use epoll.
+Using epoll() as the polling mechanism.
+[WARNING] 133/211309 (7602) : [haproxy.main()] Cannot raise FD limit to 8206.
+[ALERT] 133/211309 (7602) : Starting proxy psql: cannot bind socket [0.0.0.0:26257]
+[c7cockroach:vagrant:/vagrant] # cockroach sql --insecure --host 0.0.0.0:26257
+#
+# Welcome to the CockroachDB SQL shell.
+# All statements must be terminated by a semicolon.
+# To exit, type: \q.
+#
+# Server version: CockroachDB CCL v20.2.7 (x86_64-unknown-linux-gnu, built 2021/03/29 17:52:00, go1.13.14) (same version as client)
+# Cluster ID: 6f9fdd2b-4c72-42de-b430-ae7d4076c941
+#
+# Enter \? for a brief introduction.
+#
+root@0.0.0.0:26257/defaultdb> \q
+[c7cockroach:vagrant:/vagrant] # cockroach sql --insecure --host 0.0.0.0:26257 -c 'show node_id;'
+Usage:
+  cockroach sql [options] [flags]
+
+Flags:
+      --cert-principal-map strings                                          
+                                                                                    A comma separated list of <cert-principal>:<db-principal> mappings.
+                                                                                    This allows mapping the principal in a cert to a DB principal such
+                                                                                    as "node" or "root" or any SQL user. This is intended for use in
+                                                                                    situations where the certificate management system places restrictions
+                                                                                    on the Subject.CommonName or SubjectAlternateName fields in the
+                                                                                    certificate (e.g. disallowing a CommonName such as "node" or "root").
+                                                                                    If multiple mappings are provided for the same <cert-principal>,
+                                                                                    the last one specified in the list takes precedence. A principal
+                                                                                    not specified in the map is passed through as-is via the identity
+                                                                                    function. A cert is allowed to authenticate a DB principal if the
+                                                                                    DB principal name is contained in the mapped CommonName or DNS-type
+                                                                                    SubjectAlternateName fields.
+                                                                                   
+      --certs-dir string                                                    
+                                                                                    Path to the directory containing SSL certificates and keys.
+                                                                                    Environment variable: COCKROACH_CERTS_DIR
+                                                                                    (default "${HOME}/.cockroach-certs")
+  -d, --database string                                                     
+                                                                                    The name of the database to connect to.
+                                                                                    Environment variable: COCKROACH_DATABASE
+                                                                                   
+      --debug-sql-cli                                                       
+                                                                                    Simplify the SQL CLI to ease troubleshooting of CockroachDB issues.
+                                                                                    This echoes sent SQL, removes the database name and txn status from
+                                                                                    the prompt, and forces behavior to become independent on current
+                                                                                    transaction state. Equivalent to --echo-sql, \unset check_syntax and
+                                                                                    \set prompt1 %n@%M>.
+                                                                                   
+      --echo-sql                                                            
+                                                                                    Reveal the SQL statements sent implicitly by the command-line utility.
+                                                                                   
+  -e, --execute statementsValue                                             
+                                                                                    Execute the SQL statement(s) on the command line, then exit. This flag
+                                                                                    may be specified multiple times and each value may contain multiple
+                                                                                    semicolon separated statements. If an error occurs in any statement,
+                                                                                    the command exits with a non-zero status code and further statements
+                                                                                    are not executed. The results of each SQL statement are printed on the
+                                                                                    standard output.
+                                                                                   
+      --format string                                                       
+                                                                                    Selects how to display table rows in results. Possible values: tsv,
+                                                                                    csv, table, records, sql, raw, html. If left unspecified, defaults to
+                                                                                    tsv for non-interactive sessions and table for interactive sessions.
+                                                                                    (default "table")
+  -h, --help                                                                help for sql
+      --insecure                                                            
+                                                                                    Connect to a cluster without using TLS nor authentication. This makes
+                                                                                    the client-server connection vulnerable to MITM attacks. Use with care.
+                                                                                    Environment variable: COCKROACH_INSECURE
+                                                                                   
+      --safe-updates                                                        
+                                                                                    Disable SQL statements that may have undesired side effects. For
+                                                                                    example a DELETE or UPDATE without a WHERE clause. By default,
+                                                                                    this setting is enabled (true) and such statements are rejected to
+                                                                                    prevent accidents. This can also be overridden in a session with SET
+                                                                                    sql_safe_updates = FALSE.
+                                                                                   
+      --set statementsValue                                                 
+                                                                                    Set a client-side configuration parameter before running the SQL shell.
+                                                                                    This flag may be specified multiple times.
+                                                                                   
+      --url postgresql://[user[:passwd]@]host[:port]/[db][?parameters...]   
+                                                                                    Connection URL, e.g. "postgresql://myuser@localhost:26257/mydb". If
+                                                                                    left empty, the connection flags are used (host, port, user, database,
+                                                                                    insecure, certs-dir).
+                                                                                    Environment variable: COCKROACH_URL
+                                                                                   
+  -u, --user string                                                         
+                                                                                    Database user name.
+                                                                                    Environment variable: COCKROACH_USER
+                                                                                   
+      --watch duration                                                      
+                                                                                    Repeat the SQL statement(s) specified with --execute with the specified
+                                                                                    period. The client will stop watching if an execution of the SQL
+                                                                                    statement(s) fail.
+
+Global Flags:
+      --logtostderr Severity[=DEFAULT]   logs at or above this threshold go to stderr (default NONE)
+      --no-color                         disable standard error log colorization
+      --vmodule moduleSpec               comma-separated list of pattern=N settings for file-filtered logging (significantly hurts performance)
+
+ERROR: unknown shorthand flag: 'c' in -c
+Failed running "sql"
+[c7cockroach:vagrant:/vagrant] # cockroach sql --insecure --host 0.0.0.0:26257 -e 'show node_id;'
+  node_id
+-----------
+  1
+(1 row)
+
+Time: 37ms
+
+[c7cockroach:vagrant:/vagrant] # cockroach sql --insecure --host 0.0.0.0:26257 -e 'show node_id;'
+  node_id
+-----------
+  1
+(1 row)
+
+Time: 2ms
+
+[c7cockroach:vagrant:/vagrant] # cockroach sql --insecure --host 0.0.0.0:26257 -e 'show node_id;'
+  node_id
+-----------
+  1
+(1 row)
+
+Time: 2ms
+
+[c7cockroach:vagrant:/vagrant] # cockroach sql --insecure --host 0.0.0.0:26257 -e 'show node_id;'
+  node_id
+-----------
+  1
+(1 row)
+
+Time: 15ms
+
+[c7cockroach:vagrant:/vagrant] # cockroach sql --insecure --host 0.0.0.0:26257 -e 'show node_id;'
+  node_id
+-----------
+  1
+(1 row)
+
+Time: 2ms
+
+[c7cockroach:vagrant:/vagrant] # cockroach sql --insecure --host 0.0.0.0 -e 'show node_id;'
+  node_id
+-----------
+  1
+(1 row)
+
+Time: 2ms
+
+[c7cockroach:vagrant:/vagrant] # cockroach sql --insecure --host 0.0.0.0 -e 'show node_id;'
+  node_id
+-----------
+  1
+(1 row)
+
+Time: 3ms
+
+[c7cockroach:vagrant:/vagrant] # cockroach sql --insecure --host 0.0.0.0 -e 'show node_id;'
+  node_id
+-----------
+  1
+(1 row)
+
+Time: 2ms
+
+[c7cockroach:vagrant:/vagrant] # cockroach sql --insecure --host 0.0.0.0 -e 'show node_id;'
+  node_id
+-----------
+  1
+(1 row)
+
+Time: 2ms
+
+[c7cockroach:vagrant:/vagrant] # lt
+-rw-rw-r--. 1 vagrant vagrant  77667 May 10 21:52 Keyspace-Ranges-and-Replicas.png
+-rw-rw-r--. 1 vagrant vagrant   5284 May 11 20:04 Stopping-Local-Cockroach-via-pkill.md
+-rw-rw-r--. 1 vagrant vagrant   9828 May 11 20:20 Base-Vagrant-Setup.md
+-rw-rw-r--. 1 vagrant vagrant   1673 May 12 17:25 README.md
+-rw-rw-r--. 1 vagrant vagrant   2097 May 12 17:30 Cluster-Concepts_Keyspace-Ranges-Replicas.md
+-rw-rw-r--. 1 vagrant vagrant    560 May 12 17:51 Vagrantfile
+-rw-r--r--. 1 vagrant vagrant    667 May 14 19:50 haproxy.cfg
+drwxr-x---. 5 vagrant vagrant   4096 May 14 21:15 node1
+drwxr-x---. 5 vagrant vagrant   4096 May 14 21:16 node3
+drwxr-x---. 5 vagrant vagrant   4096 May 14 21:16 node2
+[c7cockroach:vagrant:/vagrant] # vi haproxy.cfg
+[c7cockroach:vagrant:/vagrant] #  haproxy -d -f haproxy.cfg
+Available polling systems :
+      epoll : pref=300,  test result OK
+       poll : pref=200,  test result OK
+     select : pref=150,  test result FAILED
+Total: 3 (2 usable), will use epoll.
+Using epoll() as the polling mechanism.
+[WARNING] 133/211714 (7719) : [haproxy.main()] Cannot raise FD limit to 8206.
+[WARNING] 133/211714 (7719) : [haproxy.main()] FD limit (1024) too low for maxconn=4096/maxsock=8206. Please raise 'ulimit-n' to 8206 or more to avoid any trouble.
+[WARNING] 133/211714 (7719) : Server psql/cockroach1 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms. 2 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+[WARNING] 133/211715 (7719) : Server psql/cockroach2 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms. 1 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+[WARNING] 133/211716 (7719) : Server psql/cockroach3 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms. 0 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+[ALERT] 133/211716 (7719) : proxy 'psql' has no server available!
+
+\q
+^C
+[c7cockroach:vagrant:/vagrant] # h40
+    9  sudo -i
+   10  cd /vagrant/
+   11  h40
+   12  lt
+   13  sudo -i
+   14  ls
+   15  ls *sh
+   16  cat cockroachdb_start_cluster_v2.sh
+   17  cat cockroachdb_start_cluster.sh
+   18  ./cockroachdb_start_cluster_v2.sh
+   19  cat cockroachdb_start_cluster_v2.sh
+   20  cat cockroachdb_start_cluster.sh 
+   21  ./cockroachdb_start_cluster.sh
+   22  h40
+   23  cockroach gen haproxy
+   24  cockroach gen haproxy --insecure
+   25  lt
+   26  cat haproxy.cfg
+   27  cockroach node status --insecure
+   28   haproxy -f haproxy.cfg
+   29  haproxy --help
+   30  haproxy -v
+   31  haproxy -d
+   32   haproxy -d -f haproxy.cfg
+   33  cat  /etc/security/limits.conf 
+   34  echo 'soft nofile 4096' >> /etc/security/limits.conf
+   35  sudo echo 'soft nofile 4096' >> /etc/security/limits.conf
+   36  sudo -i 
+   37   haproxy -d -f haproxy.cfg
+   38  sudo -1
+   39  sudo -i
+   40   haproxy -d -f haproxy.cfg
+   41  cockroach sql --insecure --host 0.0.0.0:26257
+   42  cockroach sql --insecure --host 0.0.0.0:26257 -c 'show node_id;'
+   43  cockroach sql --insecure --host 0.0.0.0:26257 -e 'show node_id;'
+   44  cockroach sql --insecure --host 0.0.0.0 -e 'show node_id;'
+   45  lt
+   46  vi haproxy.cfg
+   47   haproxy -d -f haproxy.cfg
+   48  h40
+[c7cockroach:vagrant:/vagrant] # h
+    1  mkdir {certs,my-safe-directory}
+    2  cockroach cert create-ca --certs-dir=certs --ca-key=my-safe-directory/ca.key
+    3  cockroach cert create-node 172.28.182.170 cockroach-db01  localhost 127.0.0.1 172.28.190.34 loadbalancer  --certs-dir=certs --ca-key=my-safe-directory/ca.key
+    4  cockroach node status
+    5  cockroach node status --certs-dir certs
+    6  sudo -i yum install haproxy
+    7  vim /etc/haproxy/haproxy.cfg
+    8  vi /etc/haproxy/haproxy.cfg
+    9  sudo -i
+   10  cd /vagrant/
+   11  h40
+   12  lt
+   13  sudo -i
+   14  ls
+   15  ls *sh
+   16  cat cockroachdb_start_cluster_v2.sh
+   17  cat cockroachdb_start_cluster.sh
+   18  ./cockroachdb_start_cluster_v2.sh
+   19  cat cockroachdb_start_cluster_v2.sh
+   20  cat cockroachdb_start_cluster.sh 
+   21  ./cockroachdb_start_cluster.sh
+   22  h40
+   23  cockroach gen haproxy
+   24  cockroach gen haproxy --insecure
+   25  lt
+   26  cat haproxy.cfg
+   27  cockroach node status --insecure
+   28   haproxy -f haproxy.cfg
+   29  haproxy --help
+   30  haproxy -v
+   31  haproxy -d
+   32   haproxy -d -f haproxy.cfg
+   33  cat  /etc/security/limits.conf 
+   34  echo 'soft nofile 4096' >> /etc/security/limits.conf
+   35  sudo echo 'soft nofile 4096' >> /etc/security/limits.conf
+   36  sudo -i 
+   37   haproxy -d -f haproxy.cfg
+   38  sudo -1
+   39  sudo -i
+   40   haproxy -d -f haproxy.cfg
+   41  cockroach sql --insecure --host 0.0.0.0:26257
+   42  cockroach sql --insecure --host 0.0.0.0:26257 -c 'show node_id;'
+   43  cockroach sql --insecure --host 0.0.0.0:26257 -e 'show node_id;'
+   44  cockroach sql --insecure --host 0.0.0.0 -e 'show node_id;'
+   45  lt
+   46  vi haproxy.cfg
+   47   haproxy -d -f haproxy.cfg
+   48  h40
+   49  h
+[c7cockroach:vagrant:/vagrant] # !27
+cockroach node status --insecure
+  id |     address     |   sql_address   |  build  |            started_at            |            updated_at            | locality | is_available | is_live
+-----+-----------------+-----------------+---------+----------------------------------+----------------------------------+----------+--------------+----------
+   1 | localhost:26257 | localhost:26257 | v20.2.7 | 2021-05-14 19:46:42.24994+00:00  | 2021-05-14 21:18:21.32505+00:00  |          | true         | true
+   2 | localhost:26258 | localhost:26258 | v20.2.7 | 2021-05-14 19:46:42.561682+00:00 | 2021-05-14 21:18:21.64722+00:00  |          | true         | true
+   3 | localhost:26259 | localhost:26259 | v20.2.7 | 2021-05-14 19:46:42.917758+00:00 | 2021-05-14 21:18:22.036277+00:00 |          | true         | true
+(3 rows)
+[c7cockroach:vagrant:/vagrant] # exit
+logout
+Connection to 127.0.0.1 closed.
+[~/projects/vagrant-centos7-cockroachdb] # vagrant ssh
+Last login: Fri May 14 18:23:50 2021 from 10.0.2.2
+[c7cockroach:vagrant:~] # h
+    1  mkdir {certs,my-safe-directory}
+    2  cockroach cert create-ca --certs-dir=certs --ca-key=my-safe-directory/ca.key
+    3  cockroach cert create-node 172.28.182.170 cockroach-db01  localhost 127.0.0.1 172.28.190.34 loadbalancer  --certs-dir=certs --ca-key=my-safe-directory/ca.key
+    4  cockroach node status
+    5  cockroach node status --certs-dir certs
+    6  sudo -i yum install haproxy
+    7  vim /etc/haproxy/haproxy.cfg
+    8  vi /etc/haproxy/haproxy.cfg
+    9  sudo -i
+   10  cd /vagrant/
+   11  h40
+   12  lt
+   13  sudo -i
+   14  ls
+   15  ls *sh
+   16  cat cockroachdb_start_cluster_v2.sh
+   17  cat cockroachdb_start_cluster.sh
+   18  ./cockroachdb_start_cluster_v2.sh
+   19  cat cockroachdb_start_cluster_v2.sh
+   20  cat cockroachdb_start_cluster.sh 
+   21  ./cockroachdb_start_cluster.sh
+   22  h40
+   23  cockroach gen haproxy
+   24  cockroach gen haproxy --insecure
+   25  lt
+   26  cat haproxy.cfg
+   27  cockroach node status --insecure
+   28   haproxy -f haproxy.cfg
+   29  haproxy --help
+   30  haproxy -v
+   31  haproxy -d
+   32   haproxy -d -f haproxy.cfg
+   33  cat  /etc/security/limits.conf 
+   34  echo 'soft nofile 4096' >> /etc/security/limits.conf
+   35  sudo echo 'soft nofile 4096' >> /etc/security/limits.conf
+   36  sudo -i 
+   37   haproxy -d -f haproxy.cfg
+   38  sudo -1
+   39  sudo -i
+   40   haproxy -d -f haproxy.cfg
+   41  cockroach sql --insecure --host 0.0.0.0:26257
+   42  cockroach sql --insecure --host 0.0.0.0:26257 -c 'show node_id;'
+   43  cockroach sql --insecure --host 0.0.0.0:26257 -e 'show node_id;'
+   44  cockroach sql --insecure --host 0.0.0.0 -e 'show node_id;'
+   45  lt
+   46  vi haproxy.cfg
+   47   haproxy -d -f haproxy.cfg
+   48  h40
+   49  h
+   50  cockroach node status --insecure
+   51  exit
+   52  h
+[c7cockroach:vagrant:~] # sudo -i
+[root@c7cockroach ~]# h
+-bash: h: command not found
+[root@c7cockroach ~]# history
+    1  systemctl status haproxy
+    2  exit
+    3  systemctl staty haproxy
+    4  systemctl start haproxy
+    5  systemctl status haproxy
+    6  exit
+    7   echo 'soft nofile 4096' >> /etc/security/limits.conf
+    8   echo 'hard nofile 10240' >> /etc/security/limits.conf
+    9  exit
+   10   echo 'soft nofile 16000' >> /etc/security/limits.conf
+   11   echo 'hard nofile 32000' >> /etc/security/limits.conf
+   12  sudo -
+   13  exit
+   14  h
+   15  history
+[root@c7cockroach ~]# !5
+systemctl status haproxy
+● haproxy.service - HAProxy Load Balancer
+   Loaded: loaded (/usr/lib/systemd/system/haproxy.service; disabled; vendor preset: disabled)
+   Active: active (running) since Fri 2021-05-14 19:44:43 UTC; 1h 34min ago
+ Main PID: 7333 (haproxy-systemd)
+   CGroup: /system.slice/haproxy.service
+           ├─7333 /usr/sbin/haproxy-systemd-wrapper -f /etc/haproxy/haproxy.cfg -p /run/haproxy.pid
+           ├─7334 /usr/sbin/haproxy -f /etc/haproxy/haproxy.cfg -p /run/haproxy.pid -Ds
+           └─7335 /usr/sbin/haproxy -f /etc/haproxy/haproxy.cfg -p /run/haproxy.pid -Ds
+
+May 14 19:44:43 c7cockroach systemd[1]: Started HAProxy Load Balancer.
+May 14 19:44:43 c7cockroach systemd[1]: Starting HAProxy Load Balancer...
+May 14 19:44:43 c7cockroach haproxy-systemd-wrapper[7333]: haproxy-systemd-wrapper: executing /usr/sbin/haproxy -f /etc/haproxy/haproxy.cfg -p /run/haproxy.pid -Ds
+[root@c7cockroach ~]# systemctl restart haproxy
+[root@c7cockroach ~]# systemctl status haproxy
+● haproxy.service - HAProxy Load Balancer
+   Loaded: loaded (/usr/lib/systemd/system/haproxy.service; disabled; vendor preset: disabled)
+   Active: active (running) since Fri 2021-05-14 21:19:17 UTC; 3s ago
+ Main PID: 7789 (haproxy-systemd)
+   CGroup: /system.slice/haproxy.service
+           ├─7789 /usr/sbin/haproxy-systemd-wrapper -f /etc/haproxy/haproxy.cfg -p /run/haproxy.pid
+           ├─7790 /usr/sbin/haproxy -f /etc/haproxy/haproxy.cfg -p /run/haproxy.pid -Ds
+           └─7791 /usr/sbin/haproxy -f /etc/haproxy/haproxy.cfg -p /run/haproxy.pid -Ds
+
+May 14 21:19:17 c7cockroach systemd[1]: Started HAProxy Load Balancer.
+May 14 21:19:17 c7cockroach systemd[1]: Starting HAProxy Load Balancer...
+May 14 21:19:17 c7cockroach haproxy-systemd-wrapper[7789]: haproxy-systemd-wrapper: executing /usr/sbin/haproxy -f /etc/haproxy/haproxy.cfg -p /run/haproxy.pid -Ds
+[root@c7cockroach ~]# exit
+logout
+[c7cockroach:vagrant:~] #  haproxy -d -f haproxy.cfg
+[ALERT] 133/211942 (7793) : Could not open configuration file haproxy.cfg : No such file or directory
+[c7cockroach:vagrant:~] # cd /vagrant/
+[c7cockroach:vagrant:/vagrant] #  haproxy -d -f haproxy.cfg
+Available polling systems :
+      epoll : pref=300,  test result OK
+       poll : pref=200,  test result OK
+     select : pref=150,  test result FAILED
+Total: 3 (2 usable), will use epoll.
+Using epoll() as the polling mechanism.
+[WARNING] 133/211949 (7795) : [haproxy.main()] Cannot raise FD limit to 8206.
+[WARNING] 133/211949 (7795) : [haproxy.main()] FD limit (1024) too low for maxconn=4096/maxsock=8206. Please raise 'ulimit-n' to 8206 or more to avoid any trouble.
+[WARNING] 133/211949 (7795) : Server psql/cockroach1 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms. 2 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+[WARNING] 133/211950 (7795) : Server psql/cockroach2 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms. 1 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+[WARNING] 133/211951 (7795) : Server psql/cockroach3 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms. 0 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+[ALERT] 133/211951 (7795) : proxy 'psql' has no server available!
+^C
+[c7cockroach:vagrant:/vagrant] # ^C
+[c7cockroach:vagrant:/vagrant] # ulimit -Hn
+4096
+[c7cockroach:vagrant:/vagrant] # ulimit -Hn
+4096
+[c7cockroach:vagrant:/vagrant] # ulimit -Sn
+1024
+[c7cockroach:vagrant:/vagrant] # cat /proc/sys/fs/file-max
+47047
+[c7cockroach:vagrant:/vagrant] # grep file-max /etc/sysctl.conf
+[c7cockroach:vagrant:/vagrant] # sudo -i
+[root@c7cockroach ~]# echo 'fs.file-max = 100000' >> /etc/sysctl.conf
+[root@c7cockroach ~]# sysctl -p
+fs.file-max = 100000
+[root@c7cockroach ~]# ulimit -Sn
+1024
+[root@c7cockroach ~]# cat /etc/security/limits.conf
+# /etc/security/limits.conf
+#
+#This file sets the resource limits for the users logged in via PAM.
+#It does not affect resource limits of the system services.
+#
+#Also note that configuration files in /etc/security/limits.d directory,
+#which are read in alphabetical order, override the settings in this
+#file in case the domain is the same or more specific.
+#That means for example that setting a limit for wildcard domain here
+#can be overriden with a wildcard setting in a config file in the
+#subdirectory, but a user specific setting here can be overriden only
+#with a user specific setting in the subdirectory.
+#
+#Each line describes a limit for a user in the form:
+#
+#<domain>        <type>  <item>  <value>
+#
+#Where:
+#<domain> can be:
+#        - a user name
+#        - a group name, with @group syntax
+#        - the wildcard *, for default entry
+#        - the wildcard %, can be also used with %group syntax,
+#                 for maxlogin limit
+#
+#<type> can have the two values:
+#        - "soft" for enforcing the soft limits
+#        - "hard" for enforcing hard limits
+#
+#<item> can be one of the following:
+#        - core - limits the core file size (KB)
+#        - data - max data size (KB)
+#        - fsize - maximum filesize (KB)
+#        - memlock - max locked-in-memory address space (KB)
+#        - nofile - max number of open file descriptors
+#        - rss - max resident set size (KB)
+#        - stack - max stack size (KB)
+#        - cpu - max CPU time (MIN)
+#        - nproc - max number of processes
+#        - as - address space limit (KB)
+#        - maxlogins - max number of logins for this user
+#        - maxsyslogins - max number of logins on the system
+#        - priority - the priority to run user process with
+#        - locks - max number of file locks the user can hold
+#        - sigpending - max number of pending signals
+#        - msgqueue - max memory used by POSIX message queues (bytes)
+#        - nice - max nice priority allowed to raise to values: [-20, 19]
+#        - rtprio - max realtime priority
+#
+#<domain>      <type>  <item>         <value>
+#
+
+#*               soft    core            0
+#*               hard    rss             10000
+#@student        hard    nproc           20
+#@faculty        soft    nproc           20
+#@faculty        hard    nproc           50
+#ftp             hard    nproc           0
+#@student        -       maxlogins       4
+
+# End of file
+soft nofile 4096
+hard nofile 10240
+soft nofile 16000
+hard nofile 32000
+[root@c7cockroach ~]# vi /etc/security/limits.conf
+[root@c7cockroach ~]# ulimit -Sn
+1024
+[root@c7cockroach ~]# exit
+logout
+[c7cockroach:vagrant:/vagrant] # sudo -i
+[root@c7cockroach ~]# ulimit -Sn
+1024
+[root@c7cockroach ~]# ulimit -n 8192
+[root@c7cockroach ~]# ulimit -Sn
+8192
+[root@c7cockroach ~]# exit
+logout
+[c7cockroach:vagrant:/vagrant] # ulimit -Hn
+4096
+[c7cockroach:vagrant:/vagrant] #  haproxy -d -f haproxy.cfg
+Available polling systems :
+      epoll : pref=300,  test result OK
+       poll : pref=200,  test result OK
+     select : pref=150,  test result FAILED
+Total: 3 (2 usable), will use epoll.
+Using epoll() as the polling mechanism.
+[WARNING] 133/212905 (7869) : [haproxy.main()] Cannot raise FD limit to 8206.
+[WARNING] 133/212905 (7869) : [haproxy.main()] FD limit (1024) too low for maxconn=4096/maxsock=8206. Please raise 'ulimit-n' to 8206 or more to avoid any trouble.
+[WARNING] 133/212905 (7869) : Server psql/cockroach1 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms. 2 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+[WARNING] 133/212906 (7869) : Server psql/cockroach2 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms. 1 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+[WARNING] 133/212907 (7869) : Server psql/cockroach3 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms. 0 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+[ALERT] 133/212907 (7869) : proxy 'psql' has no server available!
+^C
+[c7cockroach:vagrant:/vagrant] # exit
+logout
+Connection to 127.0.0.1 closed.
+[~/projects/vagrant-centos7-cockroachdb] # vagrant ssh
+sudosudo Last login: Fri May 14 21:26:24 2021 from 10.0.2.2
+[c7cockroach:vagrant:~] # sudo -i
+[root@c7cockroach ~]# haproxy -d -f /vagrant/haproxy.cfg
+Available polling systems :
+      epoll : pref=300,  test result OK
+       poll : pref=200,  test result OK
+     select : pref=150,  test result FAILED
+Total: 3 (2 usable), will use epoll.
+Using epoll() as the polling mechanism.
+[WARNING] 133/212937 (7922) : Server psql/cockroach1 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms. 2 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+[WARNING] 133/212938 (7922) : Server psql/cockroach2 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms. 1 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+[WARNING] 133/212939 (7922) : Server psql/cockroach3 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms. 0 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+[ALERT] 133/212939 (7922) : proxy 'psql' has no server available!
+q^C
+[root@c7cockroach ~]# vi /vagrant/haproxy.cfg
+[root@c7cockroach ~]# ^C
+[root@c7cockroach ~]# vi /vagrant/haproxy.cfg
+[root@c7cockroach ~]# haproxy -d -f /vagrant/haproxy.cfg
+Available polling systems :
+      epoll : pref=300,  test result OK
+       poll : pref=200,  test result OK
+     select : pref=150,  test result FAILED
+Total: 3 (2 usable), will use epoll.
+Using epoll() as the polling mechanism.
+[WARNING] 133/213147 (7926) : Server psql/cockroach1 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms. 2 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+[WARNING] 133/213148 (7926) : Server psql/cockroach2 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms. 1 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+[WARNING] 133/213148 (7926) : Server psql/cockroach3 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms. 0 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+[ALERT] 133/213148 (7926) : proxy 'psql' has no server available!
+q^C
+[root@c7cockroach ~]# vi /vagrant/haproxy.cfg
+[root@c7cockroach ~]# haproxy -d -f /vagrant/haproxy.cfg
+Available polling systems :
+      epoll : pref=300,  test result OK
+       poll : pref=200,  test result OK
+     select : pref=150,  test result FAILED
+Total: 3 (2 usable), will use epoll.
+Using epoll() as the polling mechanism.
+[WARNING] 133/213210 (7928) : Server psql/cockroach1 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms. 2 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+[WARNING] 133/213211 (7928) : Server psql/cockroach2 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms. 1 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+[WARNING] 133/213212 (7928) : Server psql/cockroach3 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms. 0 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+[ALERT] 133/213212 (7928) : proxy 'psql' has no server available!
+^C
+[root@c7cockroach ~]# vi /vagrant/haproxy.cfg
+[root@c7cockroach ~]# ^C
+[root@c7cockroach ~]# exit
+logout
+[c7cockroach:vagrant:~] # ls -ltr
+total 0
+drwxr-xr-x. 3 root    root    34 May 12 17:53 cockroach-v20.2.7.linux-amd64
+drwxrwxr-x. 2 vagrant vagrant 20 May 14 18:24 my-safe-directory
+drwxrwxr-x. 2 vagrant vagrant 52 May 14 18:24 certs
+[c7cockroach:vagrant:~] # cd /vagrant/
+[c7cockroach:vagrant:/vagrant] # ls -ltr *sh
+-rw-rw-r--. 1 vagrant vagrant 1075 Apr 16 19:43 provision.sh
+-rwxrw-rw-. 1 vagrant vagrant  723 Apr 17 14:51 cockroachdb_start_cluster.sh
+-rwxrw-r--. 1 vagrant vagrant  771 May  8 22:30 cockroachdb_start_cluster_v2.sh
+[c7cockroach:vagrant:/vagrant] # cp cockroachdb_start_cluster_v3.sh
+cp: missing destination file operand after 'cockroachdb_start_cluster_v3.sh'
+Try 'cp --help' for more information.
+[c7cockroach:vagrant:/vagrant] # cp cockroachdb_start_cluster_v2.sh cockroachdb_start_cluster_v3.sh
+[c7cockroach:vagrant:/vagrant] # vi cockroachdb_start_cluster_v3.sh
+[c7cockroach:vagrant:/vagrant] # ./cockroachdb_start_cluster_v3.sh 
+Killed
+[c7cockroach:vagrant:/vagrant] # cat cockroachdb_start_cluster_v2.sh
+#!/usr/bin/bash
+
+pkill -9 cockroach
+# https://www.cockroachlabs.com/docs/v20.2/start-a-local-cluster
+# node1
+cockroach start --insecure --store=node1 --listen-addr=localhost:26257 --http-addr=localhost:8080 --join=localhost:26257,localhost:26258,localhost:26259 --background
+
+# node2
+cockroach start --insecure --store=node2 --listen-addr=localhost:26258 --http-addr=localhost:8081 --join=localhost:26257,localhost:26258,localhost:26259 --background
+
+# node3
+cockroach start --insecure --store=node3 --listen-addr=localhost:26259 --http-addr=localhost:8082 --join=localhost:26257,localhost:26258,localhost:26259 --background
+
+# init
+cockroach init --insecure --host=localhost:26257
+sleep 2
+grep 'node starting' node1/logs/cockroach.log -A 11
+cockroach workload init movr
+[c7cockroach:vagrant:/vagrant] # pkill -9 cockroach
+[c7cockroach:vagrant:/vagrant] # # https://www.cockroachlabs.com/docs/v20.2/start-a-local-cluster
+[c7cockroach:vagrant:/vagrant] # # node1
+[c7cockroach:vagrant:/vagrant] # cockroach start --insecure --store=node1 --listen-addr=localhost:26257 --http-addr=localhost:8080 --join=localhost:26257,localhost:26258,localhost:26259 --background
+*
+* WARNING: ALL SECURITY CONTROLS HAVE BEEN DISABLED!
+* 
+* This mode is intended for non-production testing only.
+* 
+* In this mode:
+* - Your cluster is open to any client that can access localhost.
+* - Intruders with access to your machine or network can observe client-server traffic.
+* - Intruders can log in without password and read or write any data in the cluster.
+* - Intruders can consume all your server's resources and cause unavailability.
+*
+*
+* INFO: To start a secure server without mandating TLS for clients,
+* consider --accept-sql-without-tls instead. For other options, see:
+* 
+* - https://go.crdb.dev/issue-v/53404/v20.2
+* - https://www.cockroachlabs.com/docs/v20.2/secure-a-cluster.html
+*
+[c7cockroach:vagrant:/vagrant] # 
+[c7cockroach:vagrant:/vagrant] # # node2
+[c7cockroach:vagrant:/vagrant] # cockroach start --insecure --store=node2 --listen-addr=localhost:26258 --http-addr=localhost:8081 --join=localhost:26257,localhost:26258,localhost:26259 --background
+*
+* WARNING: ALL SECURITY CONTROLS HAVE BEEN DISABLED!
+* 
+* This mode is intended for non-production testing only.
+* 
+* In this mode:
+* - Your cluster is open to any client that can access localhost.
+* - Intruders with access to your machine or network can observe client-server traffic.
+* - Intruders can log in without password and read or write any data in the cluster.
+* - Intruders can consume all your server's resources and cause unavailability.
+*
+*
+* INFO: To start a secure server without mandating TLS for clients,
+* consider --accept-sql-without-tls instead. For other options, see:
+* 
+* - https://go.crdb.dev/issue-v/53404/v20.2
+* - https://www.cockroachlabs.com/docs/v20.2/secure-a-cluster.html
+*
+[c7cockroach:vagrant:/vagrant] # 
+[c7cockroach:vagrant:/vagrant] # # node3
+[c7cockroach:vagrant:/vagrant] # cockroach start --insecure --store=node3 --listen-addr=localhost:26259 --http-addr=localhost:8082 --join=localhost:26257,localhost:26258,localhost:26259 --background
+*
+* WARNING: ALL SECURITY CONTROLS HAVE BEEN DISABLED!
+* 
+* This mode is intended for non-production testing only.
+* 
+* In this mode:
+* - Your cluster is open to any client that can access localhost.
+* - Intruders with access to your machine or network can observe client-server traffic.
+* - Intruders can log in without password and read or write any data in the cluster.
+* - Intruders can consume all your server's resources and cause unavailability.
+*
+*
+* INFO: To start a secure server without mandating TLS for clients,
+* consider --accept-sql-without-tls instead. For other options, see:
+* 
+* - https://go.crdb.dev/issue-v/53404/v20.2
+* - https://www.cockroachlabs.com/docs/v20.2/secure-a-cluster.html
+*
+[c7cockroach:vagrant:/vagrant] # 
+[c7cockroach:vagrant:/vagrant] # # init
+[c7cockroach:vagrant:/vagrant] # cockroach init --insecure --host=localhost:26257
+ERROR: cluster has already been initialized
+Failed running "init"
+[c7cockroach:vagrant:/vagrant] # sleep 2
+[c7cockroach:vagrant:/vagrant] # grep 'node starting' node1/logs/cockroach.log -A 11
+[c7cockroach:vagrant:/vagrant] # h40
+   47   haproxy -d -f haproxy.cfg
+   48  h40
+   49  h
+   50  cockroach node status --insecure
+   51  exit
+   52  h
+   53  sudo -i
+   54   haproxy -d -f haproxy.cfg
+   55  cd /vagrant/
+   56   haproxy -d -f haproxy.cfg
+   57  ulimit -Hn
+   58  ulimit -Sn
+   59  cat /proc/sys/fs/file-max
+   60  grep file-max /etc/sysctl.conf
+   61  sudo -i
+   62  ulimit -Hn
+   63   haproxy -d -f haproxy.cfg
+   64  exit
+   65  sudo -i
+   66  ls -ltr
+   67  cd /vagrant/
+   68  ls -ltr *sh
+   69  cp cockroachdb_start_cluster_v3.sh
+   70  cp cockroachdb_start_cluster_v2.sh cockroachdb_start_cluster_v3.sh
+   71  vi cockroachdb_start_cluster_v3.sh
+   72  ./cockroachdb_start_cluster_v3.sh 
+   73  cat cockroachdb_start_cluster_v2.sh
+   74  pkill -9 cockroach
+   75  # https://www.cockroachlabs.com/docs/v20.2/start-a-local-cluster
+   76  # node1
+   77  cockroach start --insecure --store=node1 --listen-addr=localhost:26257 --http-addr=localhost:8080 --join=localhost:26257,localhost:26258,localhost:26259 --background
+   78  # node2
+   79  cockroach start --insecure --store=node2 --listen-addr=localhost:26258 --http-addr=localhost:8081 --join=localhost:26257,localhost:26258,localhost:26259 --background
+   80  # node3
+   81  cockroach start --insecure --store=node3 --listen-addr=localhost:26259 --http-addr=localhost:8082 --join=localhost:26257,localhost:26258,localhost:26259 --background
+   82  # init
+   83  cockroach init --insecure --host=localhost:26257
+   84  sleep 2
+   85  grep 'node starting' node1/logs/cockroach.log -A 11
+   86  h40
+[c7cockroach:vagrant:/vagrant] # cockroach node status --insecure
+  id |     address     |   sql_address   |  build  |            started_at            |            updated_at            | locality | is_available | is_live
+-----+-----------------+-----------------+---------+----------------------------------+----------------------------------+----------+--------------+----------
+   1 | localhost:26257 | localhost:26257 | v20.2.7 | 2021-05-14 21:39:11.381018+00:00 | 2021-05-14 21:39:38.412293+00:00 |          | true         | true
+   2 | localhost:26258 | localhost:26258 | v20.2.7 | 2021-05-14 21:39:12.391794+00:00 | 2021-05-14 21:39:39.451378+00:00 |          | true         | true
+   3 | localhost:26259 | localhost:26259 | v20.2.7 | 2021-05-14 21:39:13.517709+00:00 | 2021-05-14 21:39:40.616831+00:00 |          | true         | true
+(3 rows)
+[c7cockroach:vagrant:/vagrant] # pkill -9 cockroach
+[c7cockroach:vagrant:/vagrant] # cat ./cockroachdb_start_cluster_v3.sh
+#!/usr/bin/bash
+
+pkill -9 cockroach
+# https://www.cockroachlabs.com/docs/v20.2/start-a-local-cluster
+# node1
+cockroach start --insecure --store=node1 --listen-addr=localhost:26260 --http-addr=localhost:8083 --join=localhost:26260,localhost:26258,localhost:26259 --background
+
+# node2
+cockroach start --insecure --store=node2 --listen-addr=localhost:26258 --http-addr=localhost:8081 --join=localhost:26260,localhost:26258,localhost:26259 --background
+
+# node3
+cockroach start --insecure --store=node3 --listen-addr=localhost:26259 --http-addr=localhost:8082 --join=localhost:26260,localhost:26258,localhost:26259 --background
+
+# init
+cockroach init --insecure --host=localhost:26260
+sleep 2
+grep 'node starting' node1/logs/cockroach.log -A 11
+cockroach workload init movr
+[c7cockroach:vagrant:/vagrant] # mv ./cockroachdb_start_cluster_v3.sh ./crdb_start_cluster_v3.sh
+[c7cockroach:vagrant:/vagrant] # ./crdb_start_cluster_v3.sh
+*
+* WARNING: ALL SECURITY CONTROLS HAVE BEEN DISABLED!
+* 
+* This mode is intended for non-production testing only.
+* 
+* In this mode:
+* - Your cluster is open to any client that can access localhost.
+* - Intruders with access to your machine or network can observe client-server traffic.
+* - Intruders can log in without password and read or write any data in the cluster.
+* - Intruders can consume all your server's resources and cause unavailability.
+*
+*
+* INFO: To start a secure server without mandating TLS for clients,
+* consider --accept-sql-without-tls instead. For other options, see:
+* 
+* - https://go.crdb.dev/issue-v/53404/v20.2
+* - https://www.cockroachlabs.com/docs/v20.2/secure-a-cluster.html
+*
+*
+* WARNING: ALL SECURITY CONTROLS HAVE BEEN DISABLED!
+* 
+* This mode is intended for non-production testing only.
+* 
+* In this mode:
+* - Your cluster is open to any client that can access localhost.
+* - Intruders with access to your machine or network can observe client-server traffic.
+* - Intruders can log in without password and read or write any data in the cluster.
+* - Intruders can consume all your server's resources and cause unavailability.
+*
+*
+* INFO: To start a secure server without mandating TLS for clients,
+* consider --accept-sql-without-tls instead. For other options, see:
+* 
+* - https://go.crdb.dev/issue-v/53404/v20.2
+* - https://www.cockroachlabs.com/docs/v20.2/secure-a-cluster.html
+*
+*
+* WARNING: ALL SECURITY CONTROLS HAVE BEEN DISABLED!
+* 
+* This mode is intended for non-production testing only.
+* 
+* In this mode:
+* - Your cluster is open to any client that can access localhost.
+* - Intruders with access to your machine or network can observe client-server traffic.
+* - Intruders can log in without password and read or write any data in the cluster.
+* - Intruders can consume all your server's resources and cause unavailability.
+*
+*
+* INFO: To start a secure server without mandating TLS for clients,
+* consider --accept-sql-without-tls instead. For other options, see:
+* 
+* - https://go.crdb.dev/issue-v/53404/v20.2
+* - https://www.cockroachlabs.com/docs/v20.2/secure-a-cluster.html
+*
+ERROR: cluster has already been initialized
+Failed running "init"
+Error: dial tcp [::1]:26257: connect: connection refused
+[c7cockroach:vagrant:/vagrant] # vi ./crdb_start_cluster_v3.sh
+[c7cockroach:vagrant:/vagrant] # cockroach node status --insecure
+ERROR: cannot dial server.
+Is the server running?
+If the server is running, check --host client-side and --advertise server-side.
+
+dial tcp [::1]:26257: connect: connection refused
+Failed running "node status"
+[c7cockroach:vagrant:/vagrant] # cockroach node status --insecure --post 26258
+Usage:
+  cockroach node status [<node id>] [flags]
+
+Flags:
+      --all                                                                 
+                                                                                    Show all node details. When no node ID is specified, also lists all
+                                                                                    nodes that have been decommissioned in the history of the cluster.
+                                                                                   
+      --cert-principal-map strings                                          
+                                                                                    A comma separated list of <cert-principal>:<db-principal> mappings.
+                                                                                    This allows mapping the principal in a cert to a DB principal such
+                                                                                    as "node" or "root" or any SQL user. This is intended for use in
+                                                                                    situations where the certificate management system places restrictions
+                                                                                    on the Subject.CommonName or SubjectAlternateName fields in the
+                                                                                    certificate (e.g. disallowing a CommonName such as "node" or "root").
+                                                                                    If multiple mappings are provided for the same <cert-principal>,
+                                                                                    the last one specified in the list takes precedence. A principal
+                                                                                    not specified in the map is passed through as-is via the identity
+                                                                                    function. A cert is allowed to authenticate a DB principal if the
+                                                                                    DB principal name is contained in the mapped CommonName or DNS-type
+                                                                                    SubjectAlternateName fields.
+                                                                                   
+      --certs-dir string                                                    
+                                                                                    Path to the directory containing SSL certificates and keys.
+                                                                                    Environment variable: COCKROACH_CERTS_DIR
+                                                                                    (default "${HOME}/.cockroach-certs")
+      --decommission                                                        
+                                                                                    Show node decommissioning details. When no node ID is specified, also
+                                                                                    lists all nodes that have been decommissioned in the history of the
+                                                                                    cluster.
+                                                                                   
+      --echo-sql                                                            
+                                                                                    Reveal the SQL statements sent implicitly by the command-line utility.
+                                                                                   
+      --format string                                                       
+                                                                                    Selects how to display table rows in results. Possible values: tsv,
+                                                                                    csv, table, records, sql, raw, html. If left unspecified, defaults to
+                                                                                    tsv for non-interactive sessions and table for interactive sessions.
+                                                                                    (default "table")
+  -h, --help                                                                help for status
+      --insecure                                                            
+                                                                                    Connect to a cluster without using TLS nor authentication. This makes
+                                                                                    the client-server connection vulnerable to MITM attacks. Use with care.
+                                                                                    Environment variable: COCKROACH_INSECURE
+                                                                                   
+      --ranges                                                              
+                                                                                    Show node details for ranges and replicas.
+                                                                                   
+      --stats                                                               
+                                                                                    Show node disk usage details.
+                                                                                   
+      --timeout duration                                                    
+                                                                                    If nonzero, return with an error if the operation does not conclude
+                                                                                    within the specified timeout. The timeout is specified with a suffix of
+                                                                                    's' for seconds, 'm' for minutes, and 'h' for hours.
+                                                                                   
+      --url postgresql://[user[:passwd]@]host[:port]/[db][?parameters...]   
+                                                                                    Connection URL, e.g. "postgresql://myuser@localhost:26257/mydb". If
+                                                                                    left empty, the connection flags are used (host, port, user, database,
+                                                                                    insecure, certs-dir).
+                                                                                    Environment variable: COCKROACH_URL
+                                                                                   
+  -u, --user string                                                         
+                                                                                    Database user name.
+                                                                                    Environment variable: COCKROACH_USER
+
+Global Flags:
+      --logtostderr Severity[=DEFAULT]   logs at or above this threshold go to stderr (default NONE)
+      --no-color                         disable standard error log colorization
+      --vmodule moduleSpec               comma-separated list of pattern=N settings for file-filtered logging (significantly hurts performance)
+
+ERROR: unknown flag: --post
+Failed running "node status"
+[c7cockroach:vagrant:/vagrant] # cockroach node status --insecure --utl postgresql://localhost:26258
+Usage:
+  cockroach node status [<node id>] [flags]
+
+Flags:
+      --all                                                                 
+                                                                                    Show all node details. When no node ID is specified, also lists all
+                                                                                    nodes that have been decommissioned in the history of the cluster.
+                                                                                   
+      --cert-principal-map strings                                          
+                                                                                    A comma separated list of <cert-principal>:<db-principal> mappings.
+                                                                                    This allows mapping the principal in a cert to a DB principal such
+                                                                                    as "node" or "root" or any SQL user. This is intended for use in
+                                                                                    situations where the certificate management system places restrictions
+                                                                                    on the Subject.CommonName or SubjectAlternateName fields in the
+                                                                                    certificate (e.g. disallowing a CommonName such as "node" or "root").
+                                                                                    If multiple mappings are provided for the same <cert-principal>,
+                                                                                    the last one specified in the list takes precedence. A principal
+                                                                                    not specified in the map is passed through as-is via the identity
+                                                                                    function. A cert is allowed to authenticate a DB principal if the
+                                                                                    DB principal name is contained in the mapped CommonName or DNS-type
+                                                                                    SubjectAlternateName fields.
+                                                                                   
+      --certs-dir string                                                    
+                                                                                    Path to the directory containing SSL certificates and keys.
+                                                                                    Environment variable: COCKROACH_CERTS_DIR
+                                                                                    (default "${HOME}/.cockroach-certs")
+      --decommission                                                        
+                                                                                    Show node decommissioning details. When no node ID is specified, also
+                                                                                    lists all nodes that have been decommissioned in the history of the
+                                                                                    cluster.
+                                                                                   
+      --echo-sql                                                            
+                                                                                    Reveal the SQL statements sent implicitly by the command-line utility.
+                                                                                   
+      --format string                                                       
+                                                                                    Selects how to display table rows in results. Possible values: tsv,
+                                                                                    csv, table, records, sql, raw, html. If left unspecified, defaults to
+                                                                                    tsv for non-interactive sessions and table for interactive sessions.
+                                                                                    (default "table")
+  -h, --help                                                                help for status
+      --insecure                                                            
+                                                                                    Connect to a cluster without using TLS nor authentication. This makes
+                                                                                    the client-server connection vulnerable to MITM attacks. Use with care.
+                                                                                    Environment variable: COCKROACH_INSECURE
+                                                                                   
+      --ranges                                                              
+                                                                                    Show node details for ranges and replicas.
+                                                                                   
+      --stats                                                               
+                                                                                    Show node disk usage details.
+                                                                                   
+      --timeout duration                                                    
+                                                                                    If nonzero, return with an error if the operation does not conclude
+                                                                                    within the specified timeout. The timeout is specified with a suffix of
+                                                                                    's' for seconds, 'm' for minutes, and 'h' for hours.
+                                                                                   
+      --url postgresql://[user[:passwd]@]host[:port]/[db][?parameters...]   
+                                                                                    Connection URL, e.g. "postgresql://myuser@localhost:26257/mydb". If
+                                                                                    left empty, the connection flags are used (host, port, user, database,
+                                                                                    insecure, certs-dir).
+                                                                                    Environment variable: COCKROACH_URL
+                                                                                   
+  -u, --user string                                                         
+                                                                                    Database user name.
+                                                                                    Environment variable: COCKROACH_USER
+
+Global Flags:
+      --logtostderr Severity[=DEFAULT]   logs at or above this threshold go to stderr (default NONE)
+      --no-color                         disable standard error log colorization
+      --vmodule moduleSpec               comma-separated list of pattern=N settings for file-filtered logging (significantly hurts performance)
+
+ERROR: unknown flag: --utl
+Failed running "node status"
+[c7cockroach:vagrant:/vagrant] # cockroach node status --insecure --url postgresql://localhost:26258
+  id |     address     |   sql_address   |  build  |            started_at            |            updated_at            | locality | is_available | is_live
+-----+-----------------+-----------------+---------+----------------------------------+----------------------------------+----------+--------------+----------
+   1 | localhost:26260 | localhost:26260 | v20.2.7 | 2021-05-14 21:40:50.485517+00:00 | 2021-05-14 21:43:01.133728+00:00 |          | true         | true
+   2 | localhost:26258 | localhost:26258 | v20.2.7 | 2021-05-14 21:40:51.018954+00:00 | 2021-05-14 21:43:01.571647+00:00 |          | true         | true
+   3 | localhost:26259 | localhost:26259 | v20.2.7 | 2021-05-14 21:40:51.413282+00:00 | 2021-05-14 21:43:01.976046+00:00 |          | true         | true
+(3 rows)
+[c7cockroach:vagrant:/vagrant] # lt
+-rw-rw-r--. 1 vagrant vagrant   5284 May 11 20:04 Stopping-Local-Cockroach-via-pkill.md
+-rw-rw-r--. 1 vagrant vagrant   9828 May 11 20:20 Base-Vagrant-Setup.md
+-rw-rw-r--. 1 vagrant vagrant   1673 May 12 17:25 README.md
+-rw-rw-r--. 1 vagrant vagrant   2097 May 12 17:30 Cluster-Concepts_Keyspace-Ranges-Replicas.md
+-rw-rw-r--. 1 vagrant vagrant    560 May 12 17:51 Vagrantfile
+-rw-r--r--. 1 vagrant vagrant    696 May 14 21:33 haproxy.cfg
+-rwxrw-r--. 1 vagrant vagrant    771 May 14 21:41 crdb_start_cluster_v3.sh
+drwxr-x---. 5 vagrant vagrant   4096 May 14 21:42 node1
+drwxr-x---. 5 vagrant vagrant   4096 May 14 21:42 node2
+drwxr-x---. 5 vagrant vagrant   4096 May 14 21:42 node3
+[c7cockroach:vagrant:/vagrant] # cp haproxy.cfg haproxy.cfg.bak
+[c7cockroach:vagrant:/vagrant] # h|grep gen
+   23  cockroach gen haproxy
+   24  cockroach gen haproxy --insecure
+   99  h|grep gen
+[c7cockroach:vagrant:/vagrant] # cockroach gen haproxy --insecure
+ERROR: cannot dial server.
+Is the server running?
+If the server is running, check --host client-side and --advertise server-side.
+
+initial connection heartbeat failed: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing dial tcp [::1]:26257: connect: connection refused"
+Failed running "gen haproxy"
+[c7cockroach:vagrant:/vagrant] # cockroach gen haproxy --insecure --url postgresql://localhost:26258
+[c7cockroach:vagrant:/vagrant] # lt
+-rw-rw-r--. 1 vagrant vagrant   9828 May 11 20:20 Base-Vagrant-Setup.md
+-rw-rw-r--. 1 vagrant vagrant   1673 May 12 17:25 README.md
+-rw-rw-r--. 1 vagrant vagrant   2097 May 12 17:30 Cluster-Concepts_Keyspace-Ranges-Replicas.md
+-rw-rw-r--. 1 vagrant vagrant    560 May 12 17:51 Vagrantfile
+-rwxrw-r--. 1 vagrant vagrant    771 May 14 21:41 crdb_start_cluster_v3.sh
+drwxr-x---. 5 vagrant vagrant   4096 May 14 21:42 node1
+drwxr-x---. 5 vagrant vagrant   4096 May 14 21:42 node2
+drwxr-x---. 5 vagrant vagrant   4096 May 14 21:42 node3
+-rw-r--r--. 1 vagrant vagrant    696 May 14 21:43 haproxy.cfg.bak
+-rw-r--r--. 1 vagrant vagrant    667 May 14 21:44 haproxy.cfg
+[c7cockroach:vagrant:/vagrant] # diff haproxy.cfg haproxy.cfg.bak 
+11a12
+>     timeout check       10s 
+16c17
+<     bind :26257
+---
+>     bind :26256
+20c21
+<     server cockroach1 localhost:26260 check port 8083
+---
+>     server cockroach1 localhost:26257 check port 8080
+[c7cockroach:vagrant:/vagrant] # cat haproxy.cfg
+
+global
+  maxconn 4096
+
+defaults
+    mode                tcp
+    # Timeout values should be configured for your specific use.
+    # See: https://cbonte.github.io/haproxy-dconv/1.8/configuration.html#4-timeout%20connect
+    timeout connect     10s
+    timeout client      1m
+    timeout server      1m
+    # TCP keep-alive on client side. Server already enables them.
+    option              clitcpka
+
+listen psql
+    bind :26257
+    mode tcp
+    balance roundrobin
+    option httpchk GET /health?ready=1
+    server cockroach1 localhost:26260 check port 8083
+    server cockroach2 localhost:26258 check port 8081
+    server cockroach3 localhost:26259 check port 8082
+
+[c7cockroach:vagrant:/vagrant] # 
+[c7cockroach:vagrant:/vagrant] # cat cockroachdb_start_cluster_v2.sh^C
+(reverse-i-search)`ha': cockroach gen ^Cproxy --insecure --url postgresql://localhost:26258
+[c7cockroach:vagrant:/vagrant] # h|grep hap
+    6  sudo -i yum install haproxy
+    7  vim /etc/haproxy/haproxy.cfg
+    8  vi /etc/haproxy/haproxy.cfg
+   23  cockroach gen haproxy
+   24  cockroach gen haproxy --insecure
+   26  cat haproxy.cfg
+   28   haproxy -f haproxy.cfg
+   29  haproxy --help
+   30  haproxy -v
+   31  haproxy -d
+   32   haproxy -d -f haproxy.cfg
+   37   haproxy -d -f haproxy.cfg
+   40   haproxy -d -f haproxy.cfg
+   46  vi haproxy.cfg
+   47   haproxy -d -f haproxy.cfg
+   54   haproxy -d -f haproxy.cfg
+   56   haproxy -d -f haproxy.cfg
+   63   haproxy -d -f haproxy.cfg
+   98  cp haproxy.cfg haproxy.cfg.bak
+  100  cockroach gen haproxy --insecure
+  101  cockroach gen haproxy --insecure --url postgresql://localhost:26258
+  103  diff haproxy.cfg haproxy.cfg.bak 
+  104  cat haproxy.cfg
+  105  h|grep hap
+[c7cockroach:vagrant:/vagrant] #  haproxy -d -f haproxy.cfg
+Available polling systems :
+      epoll : pref=300,  test result OK
+       poll : pref=200,  test result OK
+     select : pref=150,  test result FAILED
+Total: 3 (2 usable), will use epoll.
+Using epoll() as the polling mechanism.
+[WARNING] 133/214543 (8206) : [haproxy.main()] Cannot raise FD limit to 8206.
+[WARNING] 133/214543 (8206) : [haproxy.main()] FD limit (1024) too low for maxconn=4096/maxsock=8206. Please raise 'ulimit-n' to 8206 or more to avoid any trouble.
+[WARNING] 133/214543 (8206) : Server psql/cockroach1 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms. 2 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+[WARNING] 133/214544 (8206) : Server psql/cockroach2 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms. 1 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+[WARNING] 133/214544 (8206) : Server psql/cockroach3 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms. 0 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+[ALERT] 133/214544 (8206) : proxy 'psql' has no server available!
+^C
+[c7cockroach:vagrant:/vagrant] # vi haproxy.cfg
+[c7cockroach:vagrant:/vagrant] #  haproxy -d -f haproxy.cfg
+[ALERT] 133/214715 (8208) : parsing [haproxy.cfg:20] : 'server cockroach1' unknown keyword '--insecure'. Registered keywords :
+    [ ALL] id <arg>
+    [ SSL] ca-file <arg>
+    [ SSL] check-ssl
+    [ SSL] ciphers <arg>
+    [ SSL] crl-file <arg>
+    [ SSL] crt <arg>
+    [ SSL] force-sslv3
+    [ SSL] force-tlsv10
+    [ SSL] force-tlsv11
+    [ SSL] force-tlsv12
+    [ SSL] no-sslv3
+    [ SSL] no-tlsv10
+    [ SSL] no-tlsv11
+    [ SSL] no-tlsv12
+    [ SSL] no-tls-tickets
+    [ SSL] send-proxy-v2-ssl
+    [ SSL] send-proxy-v2-ssl-cn
+    [ SSL] ssl
+    [ SSL] verify <arg>
+    [ SSL] verifyhost <arg>
+[ALERT] 133/214715 (8208) : parsing [haproxy.cfg:21] : 'server cockroach2' unknown keyword '--insecure'.
+[ALERT] 133/214715 (8208) : parsing [haproxy.cfg:22] : 'server cockroach3' unknown keyword '--insecure'.
+[ALERT] 133/214715 (8208) : Error(s) found in configuration file : haproxy.cfg
+[ALERT] 133/214715 (8208) : Fatal errors found in configuration.
+[c7cockroach:vagrant:/vagrant] # vi haproxy.cfg
+[c7cockroach:vagrant:/vagrant] #  haproxy -d -f haproxy.cfg
+Available polling systems :
+      epoll : pref=300,  test result OK
+       poll : pref=200,  test result OK
+     select : pref=150,  test result FAILED
+Total: 3 (2 usable), will use epoll.
+Using epoll() as the polling mechanism.
+[WARNING] 133/214802 (8211) : [haproxy.main()] Cannot raise FD limit to 8206.
+[WARNING] 133/214802 (8211) : [haproxy.main()] FD limit (1024) too low for maxconn=4096/maxsock=8206. Please raise 'ulimit-n' to 8206 or more to avoid any trouble.
+[WARNING] 133/214802 (8211) : Server psql/cockroach1 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms. 2 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+[WARNING] 133/214803 (8211) : Server psql/cockroach2 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms. 1 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+[WARNING] 133/214803 (8211) : Server psql/cockroach3 is DOWN, reason: Layer4 connection problem, info: "Connection refused", check duration: 0ms. 0 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+[ALERT] 133/214803 (8211) : proxy 'psql' has no server available!
+^C
+[c7cockroach:vagrant:/vagrant] # h|grep mkdir
+    1  mkdir {certs,my-safe-directory}
+  111  h|grep mkdir
+[c7cockroach:vagrant:/vagrant] # h|grep certs
+    1  mkdir {certs,my-safe-directory}
+    2  cockroach cert create-ca --certs-dir=certs --ca-key=my-safe-directory/ca.key
+    3  cockroach cert create-node 172.28.182.170 cockroach-db01  localhost 127.0.0.1 172.28.190.34 loadbalancer  --certs-dir=certs --ca-key=my-safe-directory/ca.key
+    5  cockroach node status --certs-dir certs
+  112  h|grep certs
+[c7cockroach:vagrant:/vagrant] # pkill cockroach
+[c7cockroach:vagrant:/vagrant] # initiating graceful shutdown of server
+initiating graceful shutdown of server
+initiating graceful shutdown of server
+server drained and shutdown completed
+server drained and shutdown completed
+
+[c7cockroach:vagrant:/vagrant] # cockroach cert create-node 172.28.182.170 cockroach-db01  localhost 127.0.0.1 172.28.190.34 loadbalancer  --certs-dir=certs --ca-key=my-safe-directory/ca.ke
+ERROR: failed to generate node certificate and key: error loading CA certificate certs/ca.crt and key my-safe-directory/ca.ke: open certs/ca.crt: no such file or directory
+Failed running "cert create-node"
+[c7cockroach:vagrant:/vagrant] # #cockroach cert create-node 172.28.182.170 cockroach-db01  localhost 127.0.0.1 172.28.190.34 loadbalancer  --certs-dir=certs --ca-key=
+[c7cockroach:vagrant:/vagrant] # lt
+-rw-rw-r--. 1 vagrant vagrant   1673 May 12 17:25 README.md
+-rw-rw-r--. 1 vagrant vagrant   2097 May 12 17:30 Cluster-Concepts_Keyspace-Ranges-Replicas.md
+-rw-rw-r--. 1 vagrant vagrant    560 May 12 17:51 Vagrantfile
+-rwxrw-r--. 1 vagrant vagrant    771 May 14 21:41 crdb_start_cluster_v3.sh
+-rw-r--r--. 1 vagrant vagrant    696 May 14 21:43 haproxy.cfg.bak
+-rw-r--r--. 1 vagrant vagrant    667 May 14 21:47 haproxy.cfg
+drwxr-x---. 4 vagrant vagrant   4096 May 14 21:52 node3
+drwxr-x---. 4 vagrant vagrant   4096 May 14 21:52 node1
+drwxr-x---. 5 vagrant vagrant   4096 May 14 21:52 node2
+drwx------. 2 vagrant vagrant      6 May 14 21:52 certs
+[c7cockroach:vagrant:/vagrant] # cat certs/
+cat: certs/: Is a directory
+[c7cockroach:vagrant:/vagrant] # ls certs
+[c7cockroach:vagrant:/vagrant] # h|grep certs
+    1  mkdir {certs,my-safe-directory}
+    2  cockroach cert create-ca --certs-dir=certs --ca-key=my-safe-directory/ca.key
+    3  cockroach cert create-node 172.28.182.170 cockroach-db01  localhost 127.0.0.1 172.28.190.34 loadbalancer  --certs-dir=certs --ca-key=my-safe-directory/ca.key
+    5  cockroach node status --certs-dir certs
+  112  h|grep certs
+  114  cockroach cert create-node 172.28.182.170 cockroach-db01  localhost 127.0.0.1 172.28.190.34 loadbalancer  --certs-dir=certs --ca-key=my-safe-directory/ca.ke
+  115  #cockroach cert create-node 172.28.182.170 cockroach-db01  localhost 127.0.0.1 172.28.190.34 loadbalancer  --certs-dir=certs --ca-key=
+  117  cat certs/
+  118  ls certs
+  119  h|grep certs
+[c7cockroach:vagrant:/vagrant] # !2
+cockroach cert create-ca --certs-dir=certs --ca-key=my-safe-directory/ca.key
+ERROR: failed to generate CA cert and key: could not write CA key to file my-safe-directory/ca.key: open my-safe-directory/ca.key: no such file or directory
+Failed running "cert create-ca"
+[c7cockroach:vagrant:/vagrant] # !1
+mkdir {certs,my-safe-directory}
+mkdir: cannot create directory 'certs': File exists
+[c7cockroach:vagrant:/vagrant] # mkdir ,my-safe-directory
+[c7cockroach:vagrant:/vagrant] # mkdir my-safe-directory
+mkdir: cannot create directory 'my-safe-directory': File exists
+[c7cockroach:vagrant:/vagrant] # ls -ltr my-safe-directory
+total 0
+[c7cockroach:vagrant:/vagrant] # cockroach cert create-ca --certs-dir=certs --ca-key=my-safe-directory/ca.key
+[c7cockroach:vagrant:/vagrant] # ls -ltr my-safe-directory
+total 4
+-rw-------. 1 vagrant vagrant 1679 May 14 21:55 ca.key
+[c7cockroach:vagrant:/vagrant] # cockroach cert create-node 172.28.182.170 cockroach-db01  localhost 127.0.0.1 172.28.190.34 loadbalancer  --certs-dir=certs --ca-key=my-safe-directory/ca.key
+[c7cockroach:vagrant:/vagrant] # cockroach cert create-node 172.28.182.171 cockroach-db02  localhost 127.0.0.1 172.28.190.35 loadbalancer  --certs-dir=certs --ca-key=my-safe-directory/ca.key
+ERROR: failed to generate node certificate and key: error writing node server certificate to certs/node.crt: open certs/node.crt: file exists
+Failed running "cert create-node"
+[c7cockroach:vagrant:/vagrant] # pkill cockroach
+[c7cockroach:vagrant:/vagrant] # cockroach node status
+ERROR: cannot load certificates.
+Check your certificate settings, set --certs-dir, or use --insecure for insecure clusters.
+
+problem using security settings: no certificates found; does certs dir exist?
+Failed running "node status"
+[c7cockroach:vagrant:/vagrant] # cockroach node status  --certs-dir=certs --ca-key=my-safe-directory/ca.key
+Usage:
+  cockroach node status [<node id>] [flags]
+
+Flags:
+      --all                                                                 
+                                                                                    Show all node details. When no node ID is specified, also lists all
+                                                                                    nodes that have been decommissioned in the history of the cluster.
+                                                                                   
+      --cert-principal-map strings                                          
+                                                                                    A comma separated list of <cert-principal>:<db-principal> mappings.
+                                                                                    This allows mapping the principal in a cert to a DB principal such
+                                                                                    as "node" or "root" or any SQL user. This is intended for use in
+                                                                                    situations where the certificate management system places restrictions
+                                                                                    on the Subject.CommonName or SubjectAlternateName fields in the
+                                                                                    certificate (e.g. disallowing a CommonName such as "node" or "root").
+                                                                                    If multiple mappings are provided for the same <cert-principal>,
+                                                                                    the last one specified in the list takes precedence. A principal
+                                                                                    not specified in the map is passed through as-is via the identity
+                                                                                    function. A cert is allowed to authenticate a DB principal if the
+                                                                                    DB principal name is contained in the mapped CommonName or DNS-type
+                                                                                    SubjectAlternateName fields.
+                                                                                   
+      --certs-dir string                                                    
+                                                                                    Path to the directory containing SSL certificates and keys.
+                                                                                    Environment variable: COCKROACH_CERTS_DIR
+                                                                                    (default "${HOME}/.cockroach-certs")
+      --decommission                                                        
+                                                                                    Show node decommissioning details. When no node ID is specified, also
+                                                                                    lists all nodes that have been decommissioned in the history of the
+                                                                                    cluster.
+                                                                                   
+      --echo-sql                                                            
+                                                                                    Reveal the SQL statements sent implicitly by the command-line utility.
+                                                                                   
+      --format string                                                       
+                                                                                    Selects how to display table rows in results. Possible values: tsv,
+                                                                                    csv, table, records, sql, raw, html. If left unspecified, defaults to
+                                                                                    tsv for non-interactive sessions and table for interactive sessions.
+                                                                                    (default "table")
+  -h, --help                                                                help for status
+      --insecure                                                            
+                                                                                    Connect to a cluster without using TLS nor authentication. This makes
+                                                                                    the client-server connection vulnerable to MITM attacks. Use with care.
+                                                                                    Environment variable: COCKROACH_INSECURE
+                                                                                   
+      --ranges                                                              
+                                                                                    Show node details for ranges and replicas.
+                                                                                   
+      --stats                                                               
+                                                                                    Show node disk usage details.
+                                                                                   
+      --timeout duration                                                    
+                                                                                    If nonzero, return with an error if the operation does not conclude
+                                                                                    within the specified timeout. The timeout is specified with a suffix of
+                                                                                    's' for seconds, 'm' for minutes, and 'h' for hours.
+                                                                                   
+      --url postgresql://[user[:passwd]@]host[:port]/[db][?parameters...]   
+                                                                                    Connection URL, e.g. "postgresql://myuser@localhost:26257/mydb". If
+                                                                                    left empty, the connection flags are used (host, port, user, database,
+                                                                                    insecure, certs-dir).
+                                                                                    Environment variable: COCKROACH_URL
+                                                                                   
+  -u, --user string                                                         
+                                                                                    Database user name.
+                                                                                    Environment variable: COCKROACH_USER
+
+Global Flags:
+      --logtostderr Severity[=DEFAULT]   logs at or above this threshold go to stderr (default NONE)
+      --no-color                         disable standard error log colorization
+      --vmodule moduleSpec               comma-separated list of pattern=N settings for file-filtered logging (significantly hurts performance)
+
+ERROR: unknown flag: --ca-key
+Failed running "node status"
+[c7cockroach:vagrant:/vagrant] # cockroach node status --url postgresql://localhost --certs-dir=certs --ca-key=my-safe-directory/ca.key
+Usage:
+  cockroach node status [<node id>] [flags]
+
+Flags:
+      --all                                                                 
+                                                                                    Show all node details. When no node ID is specified, also lists all
+                                                                                    nodes that have been decommissioned in the history of the cluster.
+                                                                                   
+      --cert-principal-map strings                                          
+                                                                                    A comma separated list of <cert-principal>:<db-principal> mappings.
+                                                                                    This allows mapping the principal in a cert to a DB principal such
+                                                                                    as "node" or "root" or any SQL user. This is intended for use in
+                                                                                    situations where the certificate management system places restrictions
+                                                                                    on the Subject.CommonName or SubjectAlternateName fields in the
+                                                                                    certificate (e.g. disallowing a CommonName such as "node" or "root").
+                                                                                    If multiple mappings are provided for the same <cert-principal>,
+                                                                                    the last one specified in the list takes precedence. A principal
+                                                                                    not specified in the map is passed through as-is via the identity
+                                                                                    function. A cert is allowed to authenticate a DB principal if the
+                                                                                    DB principal name is contained in the mapped CommonName or DNS-type
+                                                                                    SubjectAlternateName fields.
+                                                                                   
+      --certs-dir string                                                    
+                                                                                    Path to the directory containing SSL certificates and keys.
+                                                                                    Environment variable: COCKROACH_CERTS_DIR
+                                                                                    (default "${HOME}/.cockroach-certs")
+      --decommission                                                        
+                                                                                    Show node decommissioning details. When no node ID is specified, also
+                                                                                    lists all nodes that have been decommissioned in the history of the
+                                                                                    cluster.
+                                                                                   
+      --echo-sql                                                            
+                                                                                    Reveal the SQL statements sent implicitly by the command-line utility.
+                                                                                   
+      --format string                                                       
+                                                                                    Selects how to display table rows in results. Possible values: tsv,
+                                                                                    csv, table, records, sql, raw, html. If left unspecified, defaults to
+                                                                                    tsv for non-interactive sessions and table for interactive sessions.
+                                                                                    (default "table")
+  -h, --help                                                                help for status
+      --insecure                                                            
+                                                                                    Connect to a cluster without using TLS nor authentication. This makes
+                                                                                    the client-server connection vulnerable to MITM attacks. Use with care.
+                                                                                    Environment variable: COCKROACH_INSECURE
+                                                                                   
+      --ranges                                                              
+                                                                                    Show node details for ranges and replicas.
+                                                                                   
+      --stats                                                               
+                                                                                    Show node disk usage details.
+                                                                                   
+      --timeout duration                                                    
+                                                                                    If nonzero, return with an error if the operation does not conclude
+                                                                                    within the specified timeout. The timeout is specified with a suffix of
+                                                                                    's' for seconds, 'm' for minutes, and 'h' for hours.
+                                                                                   
+      --url postgresql://[user[:passwd]@]host[:port]/[db][?parameters...]   
+                                                                                    Connection URL, e.g. "postgresql://myuser@localhost:26257/mydb". If
+                                                                                    left empty, the connection flags are used (host, port, user, database,
+                                                                                    insecure, certs-dir).
+                                                                                    Environment variable: COCKROACH_URL
+                                                                                   
+  -u, --user string                                                         
+                                                                                    Database user name.
+                                                                                    Environment variable: COCKROACH_USER
+
+Global Flags:
+      --logtostderr Severity[=DEFAULT]   logs at or above this threshold go to stderr (default NONE)
+      --no-color                         disable standard error log colorization
+      --vmodule moduleSpec               comma-separated list of pattern=N settings for file-filtered logging (significantly hurts performance)
+
+ERROR: unknown flag: --ca-key
+Failed running "node status"
+[c7cockroach:vagrant:/vagrant] # cockroach node status --url postgresql://localhost --certs-dir=certs 
+ERROR: cannot dial server.
+Is the server running?
+If the server is running, check --host client-side and --advertise server-side.
+
+dial tcp [::1]:26257: connect: connection refused
+Failed running "node status"
+[c7cockroach:vagrant:/vagrant] # h40
+   95  cockroach node status --insecure --utl postgresql://localhost:26258
+   96  cockroach node status --insecure --url postgresql://localhost:26258
+   97  lt
+   98  cp haproxy.cfg haproxy.cfg.bak
+   99  h|grep gen
+  100  cockroach gen haproxy --insecure
+  101  cockroach gen haproxy --insecure --url postgresql://localhost:26258
+  102  lt
+  103  diff haproxy.cfg haproxy.cfg.bak 
+  104  cat haproxy.cfg
+  105  h|grep hap
+  106   haproxy -d -f haproxy.cfg
+  107  vi haproxy.cfg
+  108   haproxy -d -f haproxy.cfg
+  109  vi haproxy.cfg
+  110   haproxy -d -f haproxy.cfg
+  111  h|grep mkdir
+  112  h|grep certs
+  113  pkill cockroach
+  114  cockroach cert create-node 172.28.182.170 cockroach-db01  localhost 127.0.0.1 172.28.190.34 loadbalancer  --certs-dir=certs --ca-key=my-safe-directory/ca.ke
+  115  #cockroach cert create-node 172.28.182.170 cockroach-db01  localhost 127.0.0.1 172.28.190.34 loadbalancer  --certs-dir=certs --ca-key=
+  116  lt
+  117  cat certs/
+  118  ls certs
+  119  h|grep certs
+  120  cockroach cert create-ca --certs-dir=certs --ca-key=my-safe-directory/ca.key
+  121  mkdir {certs,my-safe-directory}
+  122  mkdir ,my-safe-directory
+  123  mkdir my-safe-directory
+  124  ls -ltr my-safe-directory
+  125  cockroach cert create-ca --certs-dir=certs --ca-key=my-safe-directory/ca.key
+  126  ls -ltr my-safe-directory
+  127  cockroach cert create-node 172.28.182.170 cockroach-db01  localhost 127.0.0.1 172.28.190.34 loadbalancer  --certs-dir=certs --ca-key=my-safe-directory/ca.key
+  128  cockroach cert create-node 172.28.182.171 cockroach-db02  localhost 127.0.0.1 172.28.190.35 loadbalancer  --certs-dir=certs --ca-key=my-safe-directory/ca.key
+  129  pkill cockroach
+  130  cockroach node status
+  131  cockroach node status  --certs-dir=certs --ca-key=my-safe-directory/ca.key
+  132  cockroach node status --url postgresql://localhost --certs-dir=certs --ca-key=my-safe-directory/ca.key
+  133  cockroach node status --url postgresql://localhost --certs-dir=certs 
+  134  h40
+[c7cockroach:vagrant:/vagrant] # cockroach node status --url postgresql://localhost --certs-dir=certs ^C
+[c7cockroach:vagrant:/vagrant] # cat cockroachdb
+cockroachdb_start_cluster.sh           cockroachdb_start_cluster_v2.sh        cockroachdb-web-console-frontpage      cockroachdb-web-console-frontpage.png  
+[c7cockroach:vagrant:/vagrant] # cat cockroachdb_start_cluster_v2.sh 
+#!/usr/bin/bash
+
+pkill -9 cockroach
+# https://www.cockroachlabs.com/docs/v20.2/start-a-local-cluster
+# node1
+cockroach start --insecure --store=node1 --listen-addr=localhost:26257 --http-addr=localhost:8080 --join=localhost:26257,localhost:26258,localhost:26259 --background
+
+# node2
+cockroach start --insecure --store=node2 --listen-addr=localhost:26258 --http-addr=localhost:8081 --join=localhost:26257,localhost:26258,localhost:26259 --background
+
+# node3
+cockroach start --insecure --store=node3 --listen-addr=localhost:26259 --http-addr=localhost:8082 --join=localhost:26257,localhost:26258,localhost:26259 --background
+
+# init
+cockroach init --insecure --host=localhost:26257
+sleep 2
+grep 'node starting' node1/logs/cockroach.log -A 11
+cockroach workload init movr
+[c7cockroach:vagrant:/vagrant] # pkill -9 cockroach
+[c7cockroach:vagrant:/vagrant] # #cockroach start --insecure --store=node1 --listen-addr=localhost:26257 --http-addr=localhost:8080 --join=localhost:26257,localhost:26258,localhost:26259 --background 
+[c7cockroach:vagrant:/vagrant] # cat /etc/hosts
+127.0.0.1	c7cockroach	c7cockroach
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+[c7cockroach:vagrant:/vagrant] # echo '172.28.182.170 localhost' >> /etc/hosts
+-bash: /etc/hosts: Permission denied
+[c7cockroach:vagrant:/vagrant] # sudo echo '172.28.182.170 localhost' >> /etc/hosts
+-bash: /etc/hosts: Permission denied
+[c7cockroach:vagrant:/vagrant] # sudo -i 
+[root@c7cockroach ~]# echo '172.28.182.170 localhost' >> /etc/hosts
+[root@c7cockroach ~]# ping -a 172.28.182.170
+PING 172.28.182.170 (172.28.182.170) 56(84) bytes of data.
+From 213.51.1.124 icmp_seq=1 Destination Net Unreachable
+From 213.51.1.124 icmp_seq=2 Destination Net Unreachable
+From 213.51.1.124 icmp_seq=3 Destination Net Unreachable
+From 213.51.1.124 icmp_seq=4 Destination Net Unreachable
+From 213.51.1.124 icmp_seq=5 Destination Net Unreachable
+From 213.51.1.124 icmp_seq=6 Destination Net Unreachable
+^XFrom 213.51.1.124 icmp_seq=7 Destination Net Unreachable
+From 213.51.1.124 icmp_seq=8 Destination Net Unreachable
+From 213.51.1.124 icmp_seq=9 Destination Net Unreachable
+From 213.51.1.124 icmp_seq=10 Destination Net Unreachable
+qFrom 213.51.1.124 icmp_seq=11 Destination Net Unreachable
+^C
+--- 172.28.182.170 ping statistics ---
+11 packets transmitted, 0 received, +11 errors, 100% packet loss, time 10018ms
+
+[root@c7cockroach ~]# echo 'localhost 172.28.182.170' >> /etc/hosts
+[root@c7cockroach ~]# ping -a 172.28.182.170
+PING 172.28.182.170 (172.28.182.170) 56(84) bytes of data.
+From 213.51.1.124 icmp_seq=1 Destination Net Unreachable
+From 213.51.1.124 icmp_seq=2 Destination Net Unreachable
+From 213.51.1.124 icmp_seq=3 Destination Net Unreachable
+From 213.51.1.124 icmp_seq=4 Destination Net Unreachable
+From 213.51.1.124 icmp_seq=5 Destination Net Unreachable
+From 213.51.1.124 icmp_seq=6 Destination Net Unreachable
+cFrom 213.51.1.124 icmp_seq=7 Destination Net Unreachable
+^C
+--- 172.28.182.170 ping statistics ---
+7 packets transmitted, 0 received, +7 errors, 100% packet loss, time 6009ms
+
+[root@c7cockroach ~]# vi /etc/hosts
+[root@c7cockroach ~]# ping -a 172.28.182.170
+PING 172.28.182.170 (172.28.182.170) 56(84) bytes of data.
+From 213.51.1.124 icmp_seq=1 Destination Net Unreachable
+From 213.51.1.124 icmp_seq=2 Destination Net Unreachable
+From 213.51.1.124 icmp_seq=3 Destination Net Unreachable
+From 213.51.1.124 icmp_seq=4 Destination Net Unreachable
+^C
+--- 172.28.182.170 ping statistics ---
+4 packets transmitted, 0 received, +4 errors, 100% packet loss, time 3003ms
+
+[root@c7cockroach ~]# ^C
+[root@c7cockroach ~]# ping 192.168.1.34
+PING 192.168.1.34 (192.168.1.34) 56(84) bytes of data.
+From 213.51.1.124 icmp_seq=1 Destination Net Unreachable
+From 213.51.1.124 icmp_seq=2 Destination Net Unreachable
+From 213.51.1.124 icmp_seq=3 Destination Net Unreachable
+From 213.51.1.124 icmp_seq=4 Destination Net Unreachable
+^C
+--- 192.168.1.34 ping statistics ---
+4 packets transmitted, 0 received, +4 errors, 100% packet loss, time 3002ms
+
+[root@c7cockroach ~]# exit
+logout
+[c7cockroach:vagrant:/vagrant] # h
+    1  mkdir {certs,my-safe-directory}
+    2  cockroach cert create-ca --certs-dir=certs --ca-key=my-safe-directory/ca.key
+    3  cockroach cert create-node 172.28.182.170 cockroach-db01  localhost 127.0.0.1 172.28.190.34 loadbalancer  --certs-dir=certs --ca-key=my-safe-directory/ca.key
+    4  cockroach node status
+    5  cockroach node status --certs-dir certs
+    6  sudo -i yum install haproxy
+    7  vim /etc/haproxy/haproxy.cfg
+    8  vi /etc/haproxy/haproxy.cfg
+    9  sudo -i
+   10  cd /vagrant/
+   11  h40
+   12  lt
+   13  sudo -i
+   14  ls
+   15  ls *sh
+   16  cat cockroachdb_start_cluster_v2.sh
+   17  cat cockroachdb_start_cluster.sh
+   18  ./cockroachdb_start_cluster_v2.sh
+   19  cat cockroachdb_start_cluster_v2.sh
+   20  cat cockroachdb_start_cluster.sh 
+   21  ./cockroachdb_start_cluster.sh
+   22  h40
+   23  cockroach gen haproxy
+   24  cockroach gen haproxy --insecure
+   25  lt
+   26  cat haproxy.cfg
+   27  cockroach node status --insecure
+   28   haproxy -f haproxy.cfg
+   29  haproxy --help
+   30  haproxy -v
+   31  haproxy -d
+   32   haproxy -d -f haproxy.cfg
+   33  cat  /etc/security/limits.conf 
+   34  echo 'soft nofile 4096' >> /etc/security/limits.conf
+   35  sudo echo 'soft nofile 4096' >> /etc/security/limits.conf
+   36  sudo -i 
+   37   haproxy -d -f haproxy.cfg
+   38  sudo -1
+   39  sudo -i
+   40   haproxy -d -f haproxy.cfg
+   41  cockroach sql --insecure --host 0.0.0.0:26257
+   42  cockroach sql --insecure --host 0.0.0.0:26257 -c 'show node_id;'
+   43  cockroach sql --insecure --host 0.0.0.0:26257 -e 'show node_id;'
+   44  cockroach sql --insecure --host 0.0.0.0 -e 'show node_id;'
+   45  lt
+   46  vi haproxy.cfg
+   47   haproxy -d -f haproxy.cfg
+   48  h40
+   49  h
+   50  cockroach node status --insecure
+   51  exit
+   52  h
+   53  sudo -i
+   54   haproxy -d -f haproxy.cfg
+   55  cd /vagrant/
+   56   haproxy -d -f haproxy.cfg
+   57  ulimit -Hn
+   58  ulimit -Sn
+   59  cat /proc/sys/fs/file-max
+   60  grep file-max /etc/sysctl.conf
+   61  sudo -i
+   62  ulimit -Hn
+   63   haproxy -d -f haproxy.cfg
+   64  exit
+   65  sudo -i
+   66  ls -ltr
+   67  cd /vagrant/
+   68  ls -ltr *sh
+   69  cp cockroachdb_start_cluster_v3.sh
+   70  cp cockroachdb_start_cluster_v2.sh cockroachdb_start_cluster_v3.sh
+   71  vi cockroachdb_start_cluster_v3.sh
+   72  ./cockroachdb_start_cluster_v3.sh 
+   73  cat cockroachdb_start_cluster_v2.sh
+   74  pkill -9 cockroach
+   75  # https://www.cockroachlabs.com/docs/v20.2/start-a-local-cluster
+   76  # node1
+   77  cockroach start --insecure --store=node1 --listen-addr=localhost:26257 --http-addr=localhost:8080 --join=localhost:26257,localhost:26258,localhost:26259 --background
+   78  # node2
+   79  cockroach start --insecure --store=node2 --listen-addr=localhost:26258 --http-addr=localhost:8081 --join=localhost:26257,localhost:26258,localhost:26259 --background
+   80  # node3
+   81  cockroach start --insecure --store=node3 --listen-addr=localhost:26259 --http-addr=localhost:8082 --join=localhost:26257,localhost:26258,localhost:26259 --background
+   82  # init
+   83  cockroach init --insecure --host=localhost:26257
+   84  sleep 2
+   85  grep 'node starting' node1/logs/cockroach.log -A 11
+   86  h40
+   87  cockroach node status --insecure
+   88  pkill -9 cockroach
+   89  cat ./cockroachdb_start_cluster_v3.sh
+   90  mv ./cockroachdb_start_cluster_v3.sh ./crdb_start_cluster_v3.sh
+   91  ./crdb_start_cluster_v3.sh
+   92  vi ./crdb_start_cluster_v3.sh
+   93  cockroach node status --insecure
+   94  cockroach node status --insecure --post 26258
+   95  cockroach node status --insecure --utl postgresql://localhost:26258
+   96  cockroach node status --insecure --url postgresql://localhost:26258
+   97  lt
+   98  cp haproxy.cfg haproxy.cfg.bak
+   99  h|grep gen
+  100  cockroach gen haproxy --insecure
+  101  cockroach gen haproxy --insecure --url postgresql://localhost:26258
+  102  lt
+  103  diff haproxy.cfg haproxy.cfg.bak 
+  104  cat haproxy.cfg
+  105  h|grep hap
+  106   haproxy -d -f haproxy.cfg
+  107  vi haproxy.cfg
+  108   haproxy -d -f haproxy.cfg
+  109  vi haproxy.cfg
+  110   haproxy -d -f haproxy.cfg
+  111  h|grep mkdir
+  112  h|grep certs
+  113  pkill cockroach
+  114  cockroach cert create-node 172.28.182.170 cockroach-db01  localhost 127.0.0.1 172.28.190.34 loadbalancer  --certs-dir=certs --ca-key=my-safe-directory/ca.ke
+  115  #cockroach cert create-node 172.28.182.170 cockroach-db01  localhost 127.0.0.1 172.28.190.34 loadbalancer  --certs-dir=certs --ca-key=
+  116  lt
+  117  cat certs/
+  118  ls certs
+  119  h|grep certs
+  120  cockroach cert create-ca --certs-dir=certs --ca-key=my-safe-directory/ca.key
+  121  mkdir {certs,my-safe-directory}
+  122  mkdir ,my-safe-directory
+  123  mkdir my-safe-directory
+  124  ls -ltr my-safe-directory
+  125  cockroach cert create-ca --certs-dir=certs --ca-key=my-safe-directory/ca.key
+  126  ls -ltr my-safe-directory
+  127  cockroach cert create-node 172.28.182.170 cockroach-db01  localhost 127.0.0.1 172.28.190.34 loadbalancer  --certs-dir=certs --ca-key=my-safe-directory/ca.key
+  128  cockroach cert create-node 172.28.182.171 cockroach-db02  localhost 127.0.0.1 172.28.190.35 loadbalancer  --certs-dir=certs --ca-key=my-safe-directory/ca.key
+  129  pkill cockroach
+  130  cockroach node status
+  131  cockroach node status  --certs-dir=certs --ca-key=my-safe-directory/ca.key
+  132  cockroach node status --url postgresql://localhost --certs-dir=certs --ca-key=my-safe-directory/ca.key
+  133  cockroach node status --url postgresql://localhost --certs-dir=certs 
+  134  h40
+  135  cat cockroachdb_start_cluster_v2.sh 
+  136  pkill -9 cockroach
+  137  #cockroach start --insecure --store=node1 --listen-addr=localhost:26257 --http-addr=localhost:8080 --join=localhost:26257,localhost:26258,localhost:26259 --background 
+  138  cat /etc/hosts
+  139  echo '172.28.182.170 localhost' >> /etc/hosts
+  140  sudo echo '172.28.182.170 localhost' >> /etc/hosts
+  141  sudo -i 
+  142  h
+[c7cockroach:vagrant:/vagrant] # cockroach cert create-node localhost localhost node1 localhost 127.0.0.1 loadbalancer  --certs-dir=certs --ca-key=my-safe-directory/ca.key
+ERROR: failed to generate node certificate and key: error writing node server certificate to certs/node.crt: open certs/node.crt: file exists
+Failed running "cert create-node"
+[c7cockroach:vagrant:/vagrant] # 
+
