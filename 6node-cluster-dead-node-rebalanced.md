@@ -1,5 +1,7 @@
 # Starting a 6 node cluster and dead-node rebalancing
 
+Demo running 6 node cluster, killing a node and subsequent rebalancing...
+
 ## Initial setup
 
 ```
