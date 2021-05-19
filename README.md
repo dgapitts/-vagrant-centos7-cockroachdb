@@ -36,3 +36,4 @@ https://university.cockroachlabs.com/course/practical-first-steps
 * [Cluster Concepts: Keyspace-Ranges-Replicas (cover a few key concepts - documentation only)](docs/Cluster-Concepts_Keyspace-Ranges-Replicas.md)
 * [Automation to create haproxy for cluster: cockroach gen haproxy ](docs/cockroach-gen-haproxy.md)
 * [Starting a 6 node cluster and dead-node rebalancing](docs/6node-cluster-dead-node-rebalanced.md)
+* [Working with cockroach node locality](docs/cockroach-node-locality.md)
