@@ -37,3 +37,4 @@ https://university.cockroachlabs.com/course/practical-first-steps
 * [Automation to create haproxy for cluster: cockroach gen haproxy ](docs/cockroach-gen-haproxy.md)
 * [Starting a 6 node cluster and dead-node rebalancing](docs/6node-cluster-dead-node-rebalanced.md)
 * [Working with cockroach node locality](docs/cockroach-node-locality.md)
+* [Geo-partitioning basic demo script](docs/geo-partitioning.md)
