@@ -38,3 +38,11 @@ https://university.cockroachlabs.com/course/practical-first-steps
 * [Starting a 6 node cluster and dead-node rebalancing](docs/6node-cluster-dead-node-rebalanced.md)
 * [Working with cockroach node locality](docs/cockroach-node-locality.md)
 * [Geo-partitioning basic demo script](docs/geo-partitioning.md)
+
+
+### June 2021
+
+https://university.cockroachlabs.com/course/cockroachdb-for-python-developers
+
+* [Getting started for python-dev course with vehicle data with last latitude & longitude](docs/vehicles_data_with_lat_long.md)
+
