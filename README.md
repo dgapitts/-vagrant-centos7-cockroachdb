@@ -45,4 +45,5 @@ https://university.cockroachlabs.com/course/practical-first-steps
 https://university.cockroachlabs.com/course/cockroachdb-for-python-developers
 
 * [Getting started for python-dev course with vehicle data with last latitude & longitude](docs/vehicles_data_with_lat_long.md)
+* [Initial data load based on movr.zip demo files from cockroachdb uni](docs/pyhton-dev-movr-demo.md)
 
