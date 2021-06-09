@@ -16,6 +16,9 @@ Below I also show how to setup a centos7-cockroachDB virtualbox-vm via vagrant i
 
 ### April 2021 
 
+Note I started the initial course was run on a vagrant centos7 env
+
+
 https://university.cockroachlabs.com/course/introduction-to-distributed-sql-and-cockroachdb
 
 * [Base Vagrant Setup (running centos7 cockroachdb v20.2.7) - notes and key points](docs/Base-Vagrant-Setup.md)
@@ -24,6 +27,8 @@ https://university.cockroachlabs.com/course/introduction-to-distributed-sql-and-
 
 
 ### May 2021 
+
+Note I switched to ubuntu on an old laptop as (a) the web interface wasn't work with vagrant even though I had port forwarding (!?) and (b) the cockroach install is light weight 
 
 https://university.cockroachlabs.com/course/practical-first-steps
 
@@ -43,6 +48,8 @@ https://university.cockroachlabs.com/course/practical-first-steps
 ### June 2021
 
 https://university.cockroachlabs.com/course/cockroachdb-for-python-developers
+
+Note I switched to Mac laptop as (a) the python-sqlalchemy movr project would not install on my old python3.5 env (!?) and (b) the cockroach install is light weight 
 
 * [Getting started for python-dev course with vehicle data with last latitude & longitude](docs/vehicles_data_with_lat_long.md)
 * [Initial data load based on movr.zip demo files from cockroachdb uni](docs/pyhton-dev-movr-demo.md)
