@@ -4,7 +4,7 @@ pkill -9 cockroach
 rm -rf ~/projects/vagrant-centos7-cockroachd/node*
 # https://www.cockroachlabs.com/docs/v20.2/start-a-local-cluster
 # node1
-cockroach start-single-node --insecure &
+cockroach start-single-node --insecure --http-addr=localhost:8081 &
 
 # init
 #cockroach init --insecure --host=localhost:26257
