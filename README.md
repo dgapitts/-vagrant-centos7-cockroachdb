@@ -55,4 +55,4 @@ Note I switched to Mac laptop as (a) the python-sqlalchemy movr project would no
 * [Initial data load based on movr.zip demo files from cockroachdb uni](docs/pyhton-dev-movr-demo.md)
 * [Mac local setup](docs/mac-local-setup.md)
 * [Setup python cockroachdb env and first sqlalchemy exercises](docs/setup-python-cockroachdb-env.md)
-* [ Reviewing sqlalchemy.engine activity and echo SQL statements](docs/sqlachemy-sql-echo.md)
+* [Reviewing sqlalchemy.engine activity and tracing SQL activity](docs/sqlachemy-sql-echo.md)
