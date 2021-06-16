@@ -1,15 +1,21 @@
-# vagrant-centos7-cockroachdb
-
+# learning-cockroach
 
 
 ## Summary
 
-I'm following some cockroachDB courses:
+This repo contains some notes and scripts I've used while working through some cockroachDB courses:
 * April 2021 - https://university.cockroachlabs.com/course/introduction-to-distributed-sql-and-cockroachdb
 * May 2021 - https://university.cockroachlabs.com/course/practical-first-steps
+* June 2021 - https://university.cockroachlabs.com/course/cockroachdb-for-python-developers
 
+I started off running centos7-cockroachDB virtualbox-vm via vagrant, which is my favourite way to explore new database technologies:
+* Professionally I've been working with Centos 5/6/7 for the last 10+ years (typically running Oracle and Postgres)
+* Typically with large relational database engines like Oracle and Postgres there are a large number of package dependencies and sometime kernel level parameter tuning, so have a VM is great
 
-Below I also show how to setup a centos7-cockroachDB virtualbox-vm via vagrant i.e. as well as my notes on working through the cockroachlabs training/university materials.
+However for learning cockroach, I've steadily migrated from working 
+(1) an initial setup with a centos7-cockroachDB virtualbox-vm 
+(2) running on old ubuntu 16.04 desktop (easier to configure the WebGUI interface)
+(3) running on mac laptop as it was easier to configure the python virtualenv (the python3 version on ubuntu was too out of date?) also installing cockroachdb is simple, clean and fast installation - so much less need to isoloate this in a VM  
 
 
 ## More Details 

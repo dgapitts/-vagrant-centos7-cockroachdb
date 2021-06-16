@@ -1,4 +1,4 @@
-## sqlalchemy.engine echo SQL statements
+## Reviewing sqlalchemy.engine activity and echo SQL statements
 
 ### Set echo=True for sqlalchemy.engine.engine
 
