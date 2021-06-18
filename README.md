@@ -63,3 +63,4 @@ Note I switched to Mac laptop as (a) the python-sqlalchemy movr project would no
 * [Setup python cockroachdb env and first sqlalchemy exercises](docs/setup-python-cockroachdb-env.md)
 * [Reviewing sqlalchemy.engine activity and tracing SQL activity](docs/sqlachemy-sql-echo.md)
 * [Some referential integrity in CockroachDB](docs/Some-referential-integrity-in-cockroach.md)
+* [Adding SQLAchemey Code to eflect schema changes](docs/Adding-SQLAchemey-Code-to-eflect-schema-changes.md)
