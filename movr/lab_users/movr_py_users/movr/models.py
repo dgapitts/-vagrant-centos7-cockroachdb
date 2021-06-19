@@ -68,6 +68,13 @@ class User(Base, UserMixin):
     # LAB: UPDATE MOVR FOR USERS AND RIDES.
     # UPDATE HERE WITH NEW SCHEMA (CHECK THE DATABASE)
 
+    __tablename__ = 'users'
+    email = Column(String)
+    last_name = Column(String)
+    first_name = Column(String)
+    phone_numbers = Column(ARRAY(String))
+    PrimaryKeyConstraint(email)
+
     def get_id(self):
         """
         Required by flask_login.
@@ -84,7 +91,6 @@ class User(Base, UserMixin):
 class Ride(Base):
     """
     Stores information about rides.
-
     Arguments:
         Base {DeclarativeMeta} -- Base class for declarative SQLAlchemy class
                 that produces appropriate `sqlalchemy.schema.Table` objects.
@@ -92,6 +98,14 @@ class Ride(Base):
     """
     # LAB: UPDATE MOVR FOR USERS AND RIDES.
     # UPDATE HERE WITH NEW SCHEMA (CHECK THE DATABASE)
+
+    __tablename__ = 'rides'
+    id = Column(UUID)
+    vehicle_id = Column(UUID, ForeignKey('vehicles.id'))
+    user_email = Column(String, ForeignKey('users.email'))
+    start_ts = Column(DateTime)
+    end_ts = Column(DateTime)
+    PrimaryKeyConstraint(id)
 
     def __repr__(self):
         return (("<Ride(id='{0}', vehicle_id='{1}', user_email='{2}', "

@@ -459,6 +459,12 @@ def add_user_txn(session, email, last_name, first_name, phone_numbers):
     # YOU MAY WANT TO CONSULT THE SQLALCHEMY DOCUMENTATION FOR THIS METHOD:
     # https://docs.sqlalchemy.org/en/13/orm/session_api.html#sqlalchemy.orm.session.Session.add
 
+    user = User(email=email, 
+                last_name=last_name,
+                first_name=first_name,
+                phone_numbers=phone_numbers)  
+    session.add(user)
+
     return True
 
 
