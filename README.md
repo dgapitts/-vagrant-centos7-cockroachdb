@@ -7,6 +7,7 @@ This repo contains some notes and scripts I've used while working through some c
 * April 2021 - https://university.cockroachlabs.com/course/introduction-to-distributed-sql-and-cockroachdb
 * May 2021 - https://university.cockroachlabs.com/course/practical-first-steps
 * June 2021 - https://university.cockroachlabs.com/course/cockroachdb-for-python-developers
+* July 2021 - https://university.cockroachlabs.com/course/perfbasics
 
 I started off running centos7-cockroachDB virtualbox-vm via vagrant, which is my favourite way to explore new database technologies:
 * Professionally I've been working with Centos 5/6/7 for the last 10+ years (typically running Oracle and Postgres)
@@ -20,7 +21,7 @@ However for learning cockroach, I've steadily migrated from working
 
 ## More Details 
 
-### April 2021 
+### April 2021 (Introduction to Distributed SQL and CockroachDB - Completed April 16, 2021)
 
 Note I started the initial course was run on a vagrant centos7 env
 
@@ -32,7 +33,7 @@ https://university.cockroachlabs.com/course/introduction-to-distributed-sql-and-
 * [Introducing the cockroach web-console](docs/Introducing-web-console.md) 
 
 
-### May 2021 
+### May 2021 (Practical First Steps with CockroachDB - Completed May 20, 2021)
 
 Note I switched to ubuntu on an old laptop as (a) the web interface wasn't work with vagrant even though I had port forwarding (!?) and (b) the cockroach install is light weight 
 
@@ -51,7 +52,7 @@ https://university.cockroachlabs.com/course/practical-first-steps
 * [Geo-partitioning basic demo script](docs/geo-partitioning.md)
 
 
-### June 2021
+### June 2021 (Fundamentals of CockroachDB for Python Developers - Completed June 20, 2021)
 
 https://university.cockroachlabs.com/course/cockroachdb-for-python-developers
 
@@ -69,6 +70,8 @@ Note I switched to Mac laptop as (a) the python-sqlalchemy movr project would no
 * [Using JSON Data](docs/Using-JSON-Data.md)
 
 
-##
+## July 2021 (CockroachDB Query Performance for Developers - started in late June 2021)
 
-* [](docs/Single-node-setup.md)
+https://university.cockroachlabs.com/course/perfbasics
+
+* [Example EXPLAIN ANALYZE queries on a Single node setup](docs/Single-node-setup.md)
