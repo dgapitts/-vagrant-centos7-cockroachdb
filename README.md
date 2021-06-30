@@ -75,3 +75,4 @@ Note I switched to Mac laptop as (a) the python-sqlalchemy movr project would no
 https://university.cockroachlabs.com/course/perfbasics
 
 * [Example EXPLAIN ANALYZE queries on a Single node setup](docs/Single-node-setup.md)
+* [To review distributed query plans we are going to need more one than cluster...](docs/Three-node-setup.md)
