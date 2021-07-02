@@ -40,3 +40,64 @@ sleep 1; cockroach node status --host localhost:26257 --insecure
 cockroach start --insecure --background --store=node3 --listen-addr=localhost:26259 --http-addr=localhost:8082 --join=localhost:26257,localhost:26258,localhost:26259
 sleep 1; cockroach node status --host localhost:26257 --insecure
 ```
+
+
+
+
+
+
+## Reloading `crdb-perf-basics` data
+```
+~/projects/vagrant-centos7-cockroachdb/crdb-perf-basics $ ./db-setup.sh  'postgres://root@localhost:26257/movr?sslmode=disable'
+Using connection string [postgres://root@localhost:26257/movr?sslmode=disable]
+Executing [./data/dbinit.sql]
+Loading [./data/vehicles_data.sql]
+Loading [./data/users_data.sql]
+Database setup for this lab is complete.
+For details, view db-setup.log.
+
+real	0m13.941s
+user	0m3.047s
+sys	0m1.486s
+```
+
+
+
+This is interesting, initially we have stale stats
+
+```
+~/projects/vagrant-centos7-cockroachdb/crdb-perf-basics $ cockroach sql --host localhost:26257 --insecure --database=movr
+…
+
+root@localhost:26257/movr> \d
+  schema_name | table_name | type  | owner | estimated_row_count | locality
+--------------+------------+-------+-------+---------------------+-----------
+  public      | users      | table | root  |                   0 | NULL
+  public      | vehicles   | table | root  |                   0 | NULL
+(2 rows)
+
+Time: 115ms total (execution 115ms / network 0ms)
+
+root@localhost:26257/movr> SELECT count(*) FROM vehicles;
+  count
+---------
+   9998
+(1 row)
+
+Time: 9ms total (execution 8ms / network 1ms)
+```
+
+But this soon gets resolved 
+
+
+```
+
+root@localhost:26257/movr> \d
+  schema_name | table_name | type  | owner | estimated_row_count | locality
+--------------+------------+-------+-------+---------------------+-----------
+  public      | users      | table | root  |               10000 | NULL
+  public      | vehicles   | table | root  |                9998 | NULL
+(2 rows)
+
+Time: 87ms total (execution 86ms / network 1ms)
+```
