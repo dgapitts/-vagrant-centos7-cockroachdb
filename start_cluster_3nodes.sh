@@ -16,3 +16,4 @@ cockroach init --insecure --host=localhost:26257
 cockroach sql --execute="SET CLUSTER SETTING server.time_until_store_dead = '1m15s';" --insecure
 
 #cockroach workload init movr
+sleep 1; cockroach node status --host localhost:26257 --insecure
