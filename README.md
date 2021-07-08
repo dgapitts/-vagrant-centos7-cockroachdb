@@ -75,5 +75,10 @@ Note I switched to Mac laptop as (a) the python-sqlalchemy movr project would no
 https://university.cockroachlabs.com/course/perfbasics
 
 * [Example EXPLAIN ANALYZE queries on a Single node setup](docs/Single-node-setup.md)
+<<<<<<< HEAD
 * [To review distributed query plans we are going to need more one than cluster...](docs/Three-node-setup.md)
 * [Composite index demo](docs/composite-index-demo.md)
+=======
+* [Setting up a new 3 node cluster...](docs/Three-node-setup.md)
+* [Example EXPLAIN ANALYZE queries on a Three node setup (didn't parallelize for our small 10K datasets)](docs/Three-node-setup-EXPLAIN-ANALYZE.md)
+>>>>>>> a4ef998 (Three-node-setup-EXPLAIN-ANALYZE)
