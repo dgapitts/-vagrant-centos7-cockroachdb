@@ -1,4 +1,4 @@
-# Composite index demo
+#   
 
 
 ## FULL SCANs (no index usage)

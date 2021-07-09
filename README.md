@@ -3,7 +3,7 @@
 
 ## Summary
 
-This repo contains some notes and scripts I've used while working through some cockroachDB courses:
+This repo contains some notes and scripts I've used while working through some cockroachlabs / university online courses:
 * April 2021 - https://university.cockroachlabs.com/course/introduction-to-distributed-sql-and-cockroachdb
 * May 2021 - https://university.cockroachlabs.com/course/practical-first-steps
 * June 2021 - https://university.cockroachlabs.com/course/cockroachdb-for-python-developers
@@ -15,16 +15,15 @@ I started off running centos7-cockroachDB virtualbox-vm via vagrant, which is my
 
 However for learning cockroach, I've steadily migrated from working 
 (1) an initial setup with a centos7-cockroachDB virtualbox-vm 
-(2) running on old ubuntu 16.04 desktop (easier to configure the WebGUI interface)
-(3) running on mac laptop as it was easier to configure the python virtualenv (the python3 version on ubuntu was too out of date?) also installing cockroachdb is simple, clean and fast installation - so much less need to isoloate this in a VM  
+(2) running on old ubuntu 16.04 desktop (easier to configure the Cockroach WebGUI interface - most of the commands and scripts here are via the cli but I do also use the WebGUI at times)
+(3) running on mac laptop as it was easier to configure the python virtualenv (the python3 version on ubuntu was too out of date?) also installing cockroachdb is simple, clean and fast installation - so much less need to isoloate this in a VM  than for a traditional heavy RDBMS like Oracle or Postgres.
 
 
-## More Details 
+## More Details by cockroachlabs / university course 
 
 ### April 2021 (Introduction to Distributed SQL and CockroachDB - Completed April 16, 2021)
 
 Note I started the initial course was run on a vagrant centos7 env
-
 
 https://university.cockroachlabs.com/course/introduction-to-distributed-sql-and-cockroachdb
 
@@ -70,15 +69,14 @@ Note I switched to Mac laptop as (a) the python-sqlalchemy movr project would no
 * [Using JSON Data](docs/Using-JSON-Data.md)
 
 
-## July 2021 (CockroachDB Query Performance for Developers - started in late June 2021)
+## July 2021 (CockroachDB Query Performance for Developers - in progress)
 
 https://university.cockroachlabs.com/course/perfbasics
-
-
 
 * [Example EXPLAIN ANALYZE queries on a Single node setup](docs/Single-node-setup.md)
 * [To review distributed query plans we are going to need more one than cluster...](docs/Three-node-setup.md)
 * [Setting up a new 3 node cluster...](docs/Three-node-setup.md)
 * [Example EXPLAIN ANALYZE queries on a Three node setup (didn't parallelize for our small 10K datasets)](docs/Three-node-setup-EXPLAIN-ANALYZE.md)
 * [Composite index demo](docs/composite-index-demo.md)
+* [Sorting and Indexes](docs/Sorting-and-Indexes.md)
 
