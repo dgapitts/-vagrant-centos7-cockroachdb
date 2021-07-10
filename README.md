@@ -79,4 +79,5 @@ https://university.cockroachlabs.com/course/perfbasics
 * [Example EXPLAIN ANALYZE queries on a Three node setup (didn't parallelize for our small 10K datasets)](docs/Three-node-setup-EXPLAIN-ANALYZE.md)
 * [Composite index demo](docs/composite-index-demo.md)
 * [Sorting and Indexes](docs/Sorting-and-Indexes.md)
+* [Covering Indexes](docs/Covering-Indexes.md)
 
