@@ -1,4 +1,4 @@
-# Covering Indexes
+# Covering Indexes and CREATE INDEX ... STORING <column> clause
 
 ## Query Trace - INDEX SCAN  (covering index vehicles_battery_idx)
 
