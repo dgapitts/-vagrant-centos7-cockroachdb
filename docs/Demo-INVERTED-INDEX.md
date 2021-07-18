@@ -83,7 +83,7 @@ Time: 5ms total (execution 5ms / network 0ms)
 ```
 
 ## query on  `vehicles where vehicle_info @> '{"wear":"damaged"}` uses INDEX SCAN on `table: vehicles@vehicles_vehicle_info_idx` 
-```
+
 ```
 root@localhost:26257/movr> explain analyze select * from vehicles where vehicle_info @> '{"wear":"damaged"}';
                                         info
