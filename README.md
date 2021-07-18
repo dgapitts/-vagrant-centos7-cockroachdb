@@ -81,3 +81,4 @@ https://university.cockroachlabs.com/course/perfbasics
 * [Sorting and Indexes](docs/Sorting-and-Indexes.md)
 * [Covering Indexes and CREATE INDEX ... STORING <column> clause](docs/Covering-Indexes.md)
 * [Starting with JSON](docs/Starting-with-JSON.md)
+* [Demo INVERTED INDEX](docs/Demo-INVERTED-INDEX.md)
