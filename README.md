@@ -82,3 +82,4 @@ https://university.cockroachlabs.com/course/perfbasics
 * [Covering Indexes and CREATE INDEX ... STORING <column> clause](docs/Covering-Indexes.md)
 * [Starting with JSON](docs/Starting-with-JSON.md)
 * [Demo INVERTED INDEX](docs/Demo-INVERTED-INDEX.md)
+* [Working with JSONB - generation_expression (aka computed columns) - can be indexed](docs/Working-with-JSONB-generation_expression-can-be-indexed.md)
