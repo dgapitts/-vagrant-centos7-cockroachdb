@@ -90,5 +90,6 @@ https://university.cockroachlabs.com/course/perfbasics
 Exploring TPCC
 
 * [Demo01 - installing tpcc on cockroch - macair load issues](docs/Demo01-installing-tpcc-on-cockroch-macair-load-issues.md)
-
+* [Demo02 installing tpcc on cockroch ubuntu - went smoothly](docs/Demo02-installing-tpcc-on-cockroch-ubuntu.md
+)
 
