@@ -69,7 +69,7 @@ Note I switched to Mac laptop as (a) the python-sqlalchemy movr project would no
 * [Using JSON Data](docs/Using-JSON-Data.md)
 
 
-## July 2021 (CockroachDB Query Performance for Developers - Completed July 31, 2021)
+### July 2021 (CockroachDB Query Performance for Developers - Completed July 31, 2021)
 
 https://university.cockroachlabs.com/course/perfbasics
 
@@ -85,9 +85,7 @@ https://university.cockroachlabs.com/course/perfbasics
 * [Working with JSONB - generation_expression (aka computed columns) - can be indexed](docs/Working-with-JSONB-generation_expression-can-be-indexed.md)
 
 
-# TPCC
-
-Exploring TPCC
+### Exploring TPCC
 
 * [Demo01 - installing tpcc on cockroch - macair load issues](docs/Demo01-installing-tpcc-on-cockroch-macair-load-issues.md)
 * [Demo02 installing tpcc on cockroch ubuntu - went smoothly](docs/Demo02-installing-tpcc-on-cockroch-ubuntu.md
