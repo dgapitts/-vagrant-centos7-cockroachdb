@@ -90,3 +90,4 @@ https://university.cockroachlabs.com/course/perfbasics
 * [Demo01 - installing tpcc on cockroch - macair load issues](docs/Demo01-installing-tpcc-on-cockroch-macair-load-issues.md)
 * [Demo02 installing tpcc on cockroch ubuntu - went smoothly](docs/Demo02-installing-tpcc-on-cockroch-ubuntu.md)
 * [Upgrading to 21.1 and newer explain analyze plan format](docs/Upgrade-21.1-new-explain-analyze-plans.md)
+* [Demo03 review data distribution for ol_delivery_d (order_line delivery_date)](docs/Demo03-review-distribution-ol_delivery_d.md)
